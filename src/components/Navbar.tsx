@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faFacebook,
+    faInstagram,
+    faLinkedin,
+    faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 interface INavbar {
     className?: string;
@@ -8,9 +15,9 @@ interface INavbar {
 export default function Navbar(props: INavbar) {
     const { className } = props;
     return (
-        <div className={"navbar h-20 md:h-28 " + className}>
-            <div className="max-w-7xl mx-auto w-full justify-between">
-                <div className="self-baseline">
+        <div className={"navbar p-0 pt-2 flex-col h-20 md:h-28 " + className}>
+            <div className="max-w-7xl px-6 mx-auto w-full justify-between">
+                <div className="self-baseline w-44 md:w-60">
                     <Link href={"/"}>
                         <a>
                             <Image
@@ -24,22 +31,22 @@ export default function Navbar(props: INavbar) {
                 <div>
                     <div className="hidden sm:flex">
                         <Link href="#">
-                            <a className="btn btn-ghost normal-case text-sm">
+                            <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Fotovoltaico
                             </a>
                         </Link>
                         <Link href="#">
-                            <a className="btn btn-ghost normal-case text-sm">
+                            <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Banho
                             </a>
                         </Link>
                         <Link href="#">
-                            <a className="btn btn-ghost normal-case text-sm">
+                            <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Piscina
                             </a>
                         </Link>
                         <Link href="#">
-                            <a className="btn btn-ghost normal-case text-sm text-primary">
+                            <a className="btn btn-ghost normal-case text-sm font-semibold text-primary">
                                 Solicite um orçamento
                             </a>
                         </Link>
@@ -83,6 +90,41 @@ export default function Navbar(props: INavbar) {
                             </li>
                         </ul>
                     </div>
+                </div>
+            </div>
+            <div className="h-9 mt-2 w-full bg-[#495057]">
+                <div className="max-w-7xl w-full h-full py-[10px] mx-auto flex px-6 sm:pr-10 sm:justify-end gap-4 text-white">
+                    <Link href={"https://www.facebook.com/solissolaroficial"}>
+                        <a className="contents" target={"_blank"}>
+                            <FontAwesomeIcon icon={faFacebook} />
+                        </a>
+                    </Link>
+                    <Link
+                        href={
+                            "https://www.youtube.com/channel/UCqFPgmLqBS8-ng8xisHudVg"
+                        }
+                    >
+                        <a className="contents" target={"_blank"}>
+                            <FontAwesomeIcon icon={faYoutube} />
+                        </a>
+                    </Link>
+                    <Link
+                        href={
+                            "https://www.linkedin.com/in/solis-solar-b8b674149/"
+                        }
+                    >
+                        <a className="contents" target={"_blank"}>
+                            <FontAwesomeIcon icon={faLinkedin} />
+                        </a>
+                    </Link>
+                    <Link
+                        href={"https://www.instagram.com/solissolaroficial/"}
+                        target={"_blank"}
+                    >
+                        <a className="contents" target={"_blank"}>
+                            <FontAwesomeIcon icon={faInstagram} />
+                        </a>
+                    </Link>
                 </div>
             </div>
         </div>
