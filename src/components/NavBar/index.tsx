@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/logo.png";
+import logo from "../../../public/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faFacebook,
@@ -9,13 +9,9 @@ import {
     faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
-interface INavbar {
-    className?: string;
-}
-export default function Navbar(props: INavbar) {
-    const { className } = props;
+const Navbar = () => {
     return (
-        <div className={"navbar p-0 pt-2 flex-col h-20 md:h-28 " + className}>
+        <div className="navbar p-0 pt-2 flex-col h-20 md:h-28 fixed z-50 bg-primary">
             <div className="max-w-7xl px-6 mx-auto w-full justify-between">
                 <div className="self-baseline w-44 md:w-60">
                     <Link href={"/"}>
@@ -29,24 +25,24 @@ export default function Navbar(props: INavbar) {
                     </Link>
                 </div>
                 <div>
-                    <div className="hidden sm:flex">
-                        <Link href="#">
+                    <div className="hidden sm:flex gap-3">
+                        <Link href={"/"} passHref>
                             <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Fotovoltaico
                             </a>
                         </Link>
-                        <Link href="#">
+                        <Link href={"/base"} passHref>
                             <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Banho
                             </a>
                         </Link>
-                        <Link href="#">
+                        <Link href={"#"} passHref>
                             <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Piscina
                             </a>
                         </Link>
-                        <Link href="#">
-                            <a className="btn btn-ghost normal-case text-sm font-semibold text-primary">
+                        <Link href={"#"} passHref>
+                            <a className="btn btn-warning normal-case text-sm font-semibold text-primary">
                                 Solicite um orçamento
                             </a>
                         </Link>
@@ -92,7 +88,7 @@ export default function Navbar(props: INavbar) {
                     </div>
                 </div>
             </div>
-            <div className="h-9 mt-2 w-full bg-[#495057]">
+            <div className="h-9 mt-2 w-full bg-secondary">
                 <div className="max-w-7xl w-full h-full py-[10px] mx-auto flex px-6 sm:pr-10 sm:justify-end gap-4 text-white">
                     <Link href={"https://www.facebook.com/solissolaroficial"}>
                         <a className="contents" target={"_blank"}>
@@ -129,4 +125,5 @@ export default function Navbar(props: INavbar) {
             </div>
         </div>
     );
-}
+};
+export default Navbar;

@@ -1,11 +1,9 @@
 import Image from "next/image";
-import Navbar from "../components/Navbar";
-import ThemeChanger from "../components/ThemeChanger";
+import ThemeChanger from "../components/Theme";
 
 export default function Home(): JSX.Element {
     return (
         <>
-            <Navbar className="fixed" />
             <div className="flex min-h-screen justify-center items-center">
                 <div className="max-w-xs rounded overflow-hidden shadow-lg my-2 bg-base-200">
                     <div className="w-full h-auto">
