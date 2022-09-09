@@ -26,7 +26,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
 
@@ -38,7 +38,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="email"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
 
@@ -50,7 +50,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <select
                                 defaultValue={1}
-                                className="select select-bordered"
+                                className="select select-ghost"
                             >
                                 <option value={1} disabled selected>
                                     Pick one
@@ -71,7 +71,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <select
                                 defaultValue={2}
-                                className="select select-bordered"
+                                className="select select-ghost"
                             >
                                 <option value={1} disabled selected>
                                     Pick one
@@ -92,7 +92,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
 
@@ -104,7 +104,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
                         <div className="form-control w-full">
@@ -115,7 +115,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
                         <div className="form-control w-full">
@@ -126,7 +126,7 @@ export default function Piscina(): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-bordered w-full"
+                                className="input input-ghost w-full"
                             />
                         </div>
 

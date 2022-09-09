@@ -41,7 +41,12 @@ const Navbar = () => {
                                 Piscina
                             </a>
                         </Link>
-                        <Link href={"#"} passHref>
+                        <Link
+                            href={
+                                "https://api.whatsapp.com/send?phone=5518996241104"
+                            }
+                            passHref
+                        >
                             <a className="btn btn-warning normal-case text-sm font-semibold text-primary">
                                 Solicite um orçamento
                             </a>
@@ -72,18 +77,32 @@ const Navbar = () => {
                             tabIndex={0}
                             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
                         >
-                            <li>
-                                <a>Fotovoltaico</a>
-                            </li>
-                            <li>
-                                <a>Banho</a>
-                            </li>
-                            <li>
-                                <a>Piscina</a>
-                            </li>
-                            <li>
-                                <a>Solicite um orçamento</a>
-                            </li>
+                            <Link href={"/"} passHref>
+                                <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    Banho
+                                </a>
+                            </Link>
+
+                            <Link href={"/banho"} passHref>
+                                <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    Banho
+                                </a>
+                            </Link>
+                            <Link href={"/piscina"} passHref>
+                                <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    Piscina
+                                </a>
+                            </Link>
+                            <Link
+                                href={
+                                    "https://api.whatsapp.com/send?phone=5518996241104"
+                                }
+                                passHref
+                            >
+                                <a className="btn btn-warning normal-case text-sm font-semibold text-primary">
+                                    Solicite um orçamento
+                                </a>
+                            </Link>
                         </ul>
                     </div>
                 </div>

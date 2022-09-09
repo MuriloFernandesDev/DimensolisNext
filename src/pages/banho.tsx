@@ -28,7 +28,7 @@ export default function Banho() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="input input-bordered w-full"
+                                        className="input input-ghost w-full"
                                     />
                                 </div>
 
@@ -40,7 +40,7 @@ export default function Banho() {
                                     </label>
                                     <input
                                         type="email"
-                                        className="input input-bordered w-full"
+                                        className="input input-ghost w-full"
                                     />
                                 </div>
 
@@ -52,7 +52,7 @@ export default function Banho() {
                                     </label>
                                     <select
                                         defaultValue={1}
-                                        className="select select-bordered"
+                                        className="select select-ghost"
                                     >
                                         <option value={1} disabled selected>
                                             Pick one
@@ -77,7 +77,7 @@ export default function Banho() {
                                     </label>
                                     <select
                                         defaultValue={1}
-                                        className="select select-bordered"
+                                        className="select select-ghost"
                                     >
                                         <option value={1} disabled selected>
                                             Pick one
@@ -103,7 +103,7 @@ export default function Banho() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="input input-bordered w-full"
+                                        className="input input-ghost w-full"
                                     />
                                 </div>
 
@@ -115,7 +115,7 @@ export default function Banho() {
                                     </label>
                                     <input
                                         type="text"
-                                        className="input input-bordered w-full"
+                                        className="input input-ghost w-full"
                                     />
                                 </div>
 
@@ -127,7 +127,7 @@ export default function Banho() {
                                     </label>
                                     <select
                                         defaultValue={1}
-                                        className="select select-bordered"
+                                        className="select select-ghost"
                                     >
                                         <option value={1} disabled selected>
                                             Pick one
@@ -231,7 +231,7 @@ export default function Banho() {
                             </div>
                             <div className="mt-10">
                                 <span className="w-full text-sm text-black">
-                                    Observações: <br />1 - 1 - O dimensionamento
+                                    Observações: <br /> 1 - O dimensionamento
                                     acima é uma sugestão e pode sofrer
                                     alterações dependendo do perfil de consumo
                                     de água quente, condições climáticas e

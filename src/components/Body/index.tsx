@@ -60,7 +60,7 @@ const Body = ({ children }: BodyProps) => {
             </div>
             <div className="w-full bg-primary">
                 {showBanner == true ? (
-                    <div className="w-full justify-around gap-5 max-w-7xl mx-auto flex">
+                    <div className="w-full justify-around gap-5 py-5 max-w-7xl mx-auto flex">
                         <Image src={BF1Img} layout="fixed"></Image>
                         <Image src={BF2Img} layout="fixed"></Image>
                         <Image src={BF3Img} layout="fixed"></Image>

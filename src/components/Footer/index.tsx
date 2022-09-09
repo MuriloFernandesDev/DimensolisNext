@@ -28,20 +28,20 @@ const Footer = () => {
     }, [router]);
 
     return (
-        <div className="py-10 bg-secondary">
+        <div className="py-10 bg-secondary px-5">
             {showBanner == true ? (
-                <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 flex">
-                    <Image src={BF1Img} layout="fixed"></Image>
-                    <Image src={BF2Img} layout="fixed"></Image>
-                    <Image src={BF3Img} layout="fixed"></Image>
-                    <Image src={BF4Img} layout="fixed"></Image>
+                <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4">
+                    <Image src={BF1Img} layout="responsive"></Image>
+                    <Image src={BF2Img} layout="responsive"></Image>
+                    <Image src={BF3Img} layout="responsive"></Image>
+                    <Image src={BF4Img} layout="responsive"></Image>
                 </div>
             ) : (
                 ""
             )}
 
-            <div className="max-w-7xl mx-auto flex justify-between items-end pl-10">
-                <div>
+            <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:pl-10 md:items-end md:flex-row">
+                <div className="grid gap-4 text-center md:text-start">
                     <div>
                         <h1> Solis Solar © Todos os direitos reservados</h1>
                         <p>
@@ -54,7 +54,7 @@ const Footer = () => {
                             16200-381
                         </p>
                     </div>
-                    <div className="w-full h-full flex gap-4 text-white mt-2">
+                    <div className="w-full h-full flex gap-4 text-white mt-2 justify-center md:justify-start">
                         <Link
                             href={"https://www.facebook.com/solissolaroficial"}
                         >
@@ -94,8 +94,8 @@ const Footer = () => {
                         </Link>
                     </div>
                 </div>
-                <div className="w-44 h-20">
-                    <Image src={FooterImg} layout="responsive"></Image>
+                <div>
+                    <Image src={FooterImg} layout="fixed"></Image>
                 </div>
             </div>
         </div>
