@@ -31,12 +31,12 @@ const Navbar = () => {
                                 Fotovoltaico
                             </a>
                         </Link>
-                        <Link href={"/base"} passHref>
+                        <Link href={"/banho"} passHref>
                             <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Banho
                             </a>
                         </Link>
-                        <Link href={"#"} passHref>
+                        <Link href={"/piscina"} passHref>
                             <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
                                 Piscina
                             </a>

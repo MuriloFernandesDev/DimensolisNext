@@ -8,6 +8,9 @@ import BF2Img from "../../../public/banners/BF2.svg";
 import BF3Img from "../../../public/banners/BF3.svg";
 import BF4Img from "../../../public/banners/BF4.svg";
 import { useRouter } from "next/router";
+import Banner01Img from "../../../public/banners/01.png";
+import Banner02Img from "../../../public/banners/02.png";
+import Banner03Img from "../../../public/banners/03.png";
 
 interface BodyProps {
     children: ReactElement;
@@ -15,6 +18,7 @@ interface BodyProps {
 const Body = ({ children }: BodyProps) => {
     const [showBanner, setShowBanner] = useState(false);
     const router = useRouter();
+    const [BannerRouter, setBannerRouter] = useState<any>(Banner01Img);
 
     useEffect(() => {
         if (router.asPath !== "/") {
@@ -22,13 +26,24 @@ const Body = ({ children }: BodyProps) => {
         } else {
             setShowBanner(false);
         }
+        if (router.asPath === "/") {
+            setBannerRouter(Banner01Img);
+        } else if (router.asPath === "/banho") {
+            setBannerRouter(Banner02Img);
+        } else if (router.asPath === "/piscina") {
+            setBannerRouter(Banner03Img);
+        }
     }, [router]);
+
     return (
         <>
             <Navbar />
+            <div className="w-full pt-28">
+                <Image src={BannerRouter} layout="responsive"></Image>
+            </div>
             <div className="w-full bg-primary">
                 {showBanner == true ? (
-                    <div className="w-full justify-around gap-5 max-w-7xl mx-auto pt-36 flex">
+                    <div className="w-full justify-around gap-5 max-w-7xl mx-auto flex">
                         <Image src={BF1Img} layout="fixed"></Image>
                         <Image src={BF2Img} layout="fixed"></Image>
                         <Image src={BF3Img} layout="fixed"></Image>
@@ -39,8 +54,8 @@ const Body = ({ children }: BodyProps) => {
                 )}
                 <div
                     className={
-                        "bg-primary py-12 mx-auto flex max-w-7xl " +
-                        (showBanner === false ? "pt-36" : "")
+                        "bg-primary mx-auto flex max-w-7xl " +
+                        (showBanner === false ? "py-10" : "")
                     }
                 >
                     <div className="w-3/4 px-4">{children}</div>

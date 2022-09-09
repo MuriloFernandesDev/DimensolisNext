@@ -2,7 +2,7 @@ export default function Banho() {
     return (
         <>
             <div className="flex flex-col gap-4 items-center">
-                <div className="flex w-full mt-6">
+                <div className="flex w-full">
                     <div className="flex flex-col">
                         <h1 className="text-primary-content text-5xl font-bold leading-tight">
                             Calculadora de Aquecedor solar Residencial
@@ -18,7 +18,7 @@ export default function Banho() {
                             equipamentos necessários.
                         </p>
 
-                        <form action="" className="mt-6">
+                        <form action="" className="mt-6 flex flex-col gap-8">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="form-control w-full">
                                     <label className="label">
@@ -127,7 +127,7 @@ export default function Banho() {
                                 Onde haverá consumo de água quente?
                             </h1>
                             <div className="flex justify-between">
-                                <div className="flex gap-2 w-full justify-around">
+                                <div className="flex gap-3 w-full justify-start">
                                     <div>
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
@@ -207,6 +207,18 @@ export default function Banho() {
                                         Solicitar Orçamento
                                     </button>
                                 </div>
+                            </div>
+                            <div className="mt-10">
+                                <span className="w-full text-sm text-black">
+                                    Observações: <br />1 - 1 - O dimensionamento
+                                    acima é uma sugestão e pode sofrer
+                                    alterações dependendo do perfil de consumo
+                                    de água quente, condições climáticas e
+                                    condições de instalação; <br /> 2 - O
+                                    dimensionamento acima levou em consideração
+                                    as condições ideais de instalação conforme
+                                    ABNT NBR 15569/2020.
+                                </span>
                             </div>
                         </form>
                     </div>
