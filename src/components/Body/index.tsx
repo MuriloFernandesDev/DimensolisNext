@@ -71,32 +71,33 @@ const Body = ({ children }: BodyProps) => {
                 )}
                 <div
                     className={
-                        "bg-primary mx-auto flex max-w-7xl " +
+                        "bg-primary mx-auto grid grid-cols-1 md:grid-cols-4 max-w-7xl " +
                         (showBanner === false ? "py-10" : "")
                     }
                 >
-                    <div className="w-3/4 px-4">{children}</div>
-                    <div className="w-1/4 px-4 flex flex-col gap-4">
+                    <div className="px-4 col-span-3">{children}</div>
+                    <div className="px-4 flex flex-col gap-3 pt-10 md:pt-0">
                         <h1 className="text-primary-content font-bold text-2xl">
                             Quer saber mais? leia os artigos do nosso blog!
                         </h1>
 
-                        {/* wp:featuredmedia */}
-                        {data?.data.map((postBlog: any) => {
-                            return (
-                                <li key={postBlog.id}>
-                                    <BlogContent
-                                        image={
-                                            "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
-                                        }
-                                        category={"teste"}
-                                        title={postBlog.title.rendered}
-                                        data={postBlog.date}
-                                        link={postBlog.link}
-                                    />
-                                </li>
-                            );
-                        })}
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
+                            {data?.data.map((postBlog: any) => {
+                                return (
+                                    <li className="list-none" key={postBlog.id}>
+                                        <BlogContent
+                                            image={
+                                                "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
+                                            }
+                                            category={"teste"}
+                                            title={postBlog.title.rendered}
+                                            data={postBlog.date}
+                                            link={postBlog.link}
+                                        />
+                                    </li>
+                                );
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
