@@ -11,14 +11,17 @@ import { useRouter } from "next/router";
 import Banner01Img from "../../../public/banners/01.png";
 import Banner02Img from "../../../public/banners/02.png";
 import Banner03Img from "../../../public/banners/03.png";
+import axios from "axios";
 
 interface BodyProps {
     children: ReactElement;
 }
+
 const Body = ({ children }: BodyProps) => {
     const [showBanner, setShowBanner] = useState(false);
     const router = useRouter();
     const [BannerRouter, setBannerRouter] = useState<any>(Banner01Img);
+    const [data, setData] = useState<any>();
 
     useEffect(() => {
         if (router.asPath !== "/") {
@@ -34,6 +37,21 @@ const Body = ({ children }: BodyProps) => {
             setBannerRouter(Banner03Img);
         }
     }, [router]);
+
+    useEffect(() => {
+        async function ApiBlog() {
+            try {
+                const response = await axios.get(
+                    "https://solissolar.com.br/wp-json/wp/v2/posts?per_page=3"
+                );
+                setData(response);
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        ApiBlog();
+    }, []);
 
     return (
         <>
@@ -63,9 +81,20 @@ const Body = ({ children }: BodyProps) => {
                         <h1 className="text-primary-content font-bold text-2xl">
                             Quer saber mais? leia os artigos do nosso blog!
                         </h1>
-                        <BlogContent />
-                        <BlogContent />
-                        <BlogContent />
+                        {data?.data.map((postBlog: any) => {
+                            return (
+                                <BlogContent
+                                    id={postBlog.id}
+                                    image={
+                                        "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
+                                    }
+                                    category={"teste"}
+                                    title={postBlog.title.rendered}
+                                    data={postBlog.date}
+                                    link={postBlog.link}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -73,4 +102,5 @@ const Body = ({ children }: BodyProps) => {
         </>
     );
 };
+
 export default Body;
