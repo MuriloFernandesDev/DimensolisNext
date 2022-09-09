@@ -45,7 +45,6 @@ const Body = ({ children }: BodyProps) => {
                     "https://solissolar.com.br/wp-json/wp/v2/posts?per_page=3"
                 );
                 setData(response);
-                console.log(response);
             } catch (error) {
                 console.log(error);
             }
@@ -81,18 +80,21 @@ const Body = ({ children }: BodyProps) => {
                         <h1 className="text-primary-content font-bold text-2xl">
                             Quer saber mais? leia os artigos do nosso blog!
                         </h1>
+
+                        {/* wp:featuredmedia */}
                         {data?.data.map((postBlog: any) => {
                             return (
-                                <BlogContent
-                                    id={postBlog.id}
-                                    image={
-                                        "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
-                                    }
-                                    category={"teste"}
-                                    title={postBlog.title.rendered}
-                                    data={postBlog.date}
-                                    link={postBlog.link}
-                                />
+                                <li key={postBlog.id}>
+                                    <BlogContent
+                                        image={
+                                            "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
+                                        }
+                                        category={"teste"}
+                                        title={postBlog.title.rendered}
+                                        data={postBlog.date}
+                                        link={postBlog.link}
+                                    />
+                                </li>
                             );
                         })}
                     </div>

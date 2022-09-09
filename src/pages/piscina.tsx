@@ -48,15 +48,18 @@ export default function Piscina(): JSX.Element {
                                     Selecione o estado
                                 </span>
                             </label>
-                            <select className="select select-bordered">
-                                <option disabled selected>
+                            <select
+                                defaultValue={1}
+                                className="select select-bordered"
+                            >
+                                <option value={1} disabled selected>
                                     Pick one
                                 </option>
-                                <option>Star Wars</option>
-                                <option>Harry Potter</option>
-                                <option>Lord of the Rings</option>
-                                <option>Planet of the Apes</option>
-                                <option>Star Trek</option>
+                                <option value={2}>Star Wars</option>
+                                <option value={3}>Harry Potter</option>
+                                <option value={4}>Lord of the Rings</option>
+                                <option value={5}>Planet of the Apes</option>
+                                <option value={6}>Star Trek</option>
                             </select>
                         </div>
 
@@ -66,15 +69,18 @@ export default function Piscina(): JSX.Element {
                                     Selecione a cidade
                                 </span>
                             </label>
-                            <select className="select select-bordered">
-                                <option disabled selected>
+                            <select
+                                defaultValue={2}
+                                className="select select-bordered"
+                            >
+                                <option value={1} disabled selected>
                                     Pick one
                                 </option>
-                                <option>Star Wars</option>
-                                <option>Harry Potter</option>
-                                <option>Lord of the Rings</option>
-                                <option>Planet of the Apes</option>
-                                <option>Star Trek</option>
+                                <option value={2}>Star Wars</option>
+                                <option value={3}>Harry Potter</option>
+                                <option value={4}>Lord of the Rings</option>
+                                <option value={5}>Planet of the Apes</option>
+                                <option value={6}>Star Trek</option>
                             </select>
                         </div>
 

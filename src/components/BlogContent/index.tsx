@@ -3,6 +3,7 @@ import ImageBlog from "../../../public/BlogPost.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { date } from "../../utils/masks";
 
 interface BlogContentProps {
     image: string;
@@ -10,7 +11,6 @@ interface BlogContentProps {
     title: string;
     data: string;
     link: string;
-    id: number;
 }
 
 const BlogContent = ({
@@ -19,13 +19,9 @@ const BlogContent = ({
     title,
     data,
     link,
-    id,
 }: BlogContentProps) => {
     return (
-        <div
-            key={id}
-            className="card card-compact w-full drop-shadow-sm shadow-black border-2 bg-primary transition-all hover:scale-105 duration-300 hover:shadow-xl"
-        >
+        <div className="card card-compact w-full drop-shadow-sm shadow-black border-2 bg-primary transition-all hover:scale-105 duration-300 hover:shadow-xl">
             <div className="card-body flex flex-col">
                 <div className="bg-warning w-full pb-2 rounded-md">
                     <Image
@@ -48,7 +44,7 @@ const BlogContent = ({
                 <div className="flex justify-between items-center w-full text-slate-700">
                     <div className="flex gap-1 items-center text-xs">
                         <FontAwesomeIcon icon={faClock} />
-                        <p>{data}</p>
+                        <p>{date(data)}</p>
                     </div>
                     <Link href={link}>
                         <a target="_blank">Ver mais</a>
