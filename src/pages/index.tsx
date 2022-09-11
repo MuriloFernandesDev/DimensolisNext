@@ -4,6 +4,8 @@ import { fauna } from "../services/db";
 import { query as q } from "faunadb";
 import { useState } from "react";
 import styles from "../styles/styles.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -19,30 +21,109 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
         console.log(state);
         event.preventDefault();
         setShowModal(!showModal);
+        //exibir modal se ocorrer tudo bem
     };
 
     return (
         <>
             {showModal === true ? (
-                <div className={styles.modal}>
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">
-                            Congratulations random Internet user!
-                        </h3>
-                        <p className="py-4">
-                            You've been selected for a chance to get one year of
-                            subscription to use Wikipedia for free!
-                        </p>
-                        <div className="modal-action">
-                            <a
-                                onClick={() => setShowModal(!showModal)}
-                                className="btn"
-                            >
-                                Yay!
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                <>
+                    <input
+                        type="checkbox"
+                        id="my-modal-4"
+                        className="modal-toggle"
+                        onClick={() => setShowModal(!showModal)}
+                    />
+                    <label
+                        htmlFor="my-modal-4"
+                        className={
+                            styles.modal +
+                            (showModal !== true ? " modal-toggle" : "")
+                        }
+                    >
+                        <label
+                            className="modal-box w-[450px] bg-white flex flex-col gap-4 relative"
+                            htmlFor=""
+                        >
+                            <div className="flex items-center w-full">
+                                <div className="flex w-full">
+                                    {" "}
+                                    <h1 className="text-3xl font-extrabold text-primary-content">
+                                        Gasto médio
+                                        <br />
+                                        <span className="font-medium">
+                                            de energia elétrica
+                                        </span>
+                                    </h1>
+                                </div>
+                                <div className="flex">
+                                    <FontAwesomeIcon
+                                        icon={faBolt}
+                                        className="h-16 text-warning"
+                                    ></FontAwesomeIcon>
+                                    <div className="flex flex-col items-center">
+                                        {" "}
+                                        <p className="text-6xl font-bold text-primary-content">
+                                            785
+                                        </p>
+                                        <p className="text-primary-content text-base">
+                                            kWh/mês
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex">
+                                <div className="flex flex-col w-1/2">
+                                    <h1 className="text-warning text-5xl font-bold">
+                                        7,695
+                                    </h1>
+                                    <p className="text-sm text-primary-content">
+                                        <span className="text-warning font-semibold">
+                                            kWp
+                                        </span>{" "}
+                                        - Sistemas
+                                        <br /> fotovoltaicos Solis
+                                    </p>
+                                </div>
+                                <div className="grid grid-cols-2 w-1/2">
+                                    <div className="flex flex-col items-center">
+                                        <p className="text-6xl font-bold text-primary-content">
+                                            19
+                                        </p>
+                                        <p className="text-base text-primary-content">
+                                            Módulos
+                                        </p>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <p className="text-6xl font-bold text-primary-content">
+                                            01
+                                        </p>
+                                        <p className="text-base text-primary-content">
+                                            Inversores
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid gap-3">
+                                <a
+                                    onClick={() => setShowModal(!showModal)}
+                                    className="btn btn-warning w-full font-bold text-black"
+                                >
+                                    Calcular novamente
+                                </a>
+                                <a
+                                    href="https://api.whatsapp.com/send?phone=5518996241104"
+                                    target={"_blank"}
+                                    className="btn btn-warning w-full font-bold text-black"
+                                >
+                                    Orçamento
+                                </a>
+                            </div>
+                        </label>
+                    </label>
+                </>
             ) : (
                 ""
             )}
