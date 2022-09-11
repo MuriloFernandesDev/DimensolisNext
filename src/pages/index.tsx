@@ -2,10 +2,50 @@ import Image from "next/image";
 import InversoresImg from "../../public/inversores.svg";
 import { fauna } from "../services/db";
 import { query as q } from "faunadb";
+import { useState } from "react";
+import styles from "../styles/styles.module.scss";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
+    const [name, setName] = useState<string>();
+    const [email, setEmail] = useState<string>();
+    const [state, setState] = useState<string>();
+    const [city, setCity] = useState<string>();
+    const [tariff, setTariff] = useState<string | number>();
+    const [invoice, setInvoice] = useState<string | number>();
+    const [inverter, setInverter] = useState<string>();
+    const [showModal, setShowModal] = useState(false);
+
+    const handleSubmit = (event: any) => {
+        console.log(state);
+        event.preventDefault();
+        setShowModal(!showModal);
+    };
+
     return (
         <>
+            {showModal === true ? (
+                <div className={styles.modal}>
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">
+                            Congratulations random Internet user!
+                        </h3>
+                        <p className="py-4">
+                            You've been selected for a chance to get one year of
+                            subscription to use Wikipedia for free!
+                        </p>
+                        <div className="modal-action">
+                            <a
+                                onClick={() => setShowModal(!showModal)}
+                                className="btn"
+                            >
+                                Yay!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                ""
+            )}
             <div className="flex flex-col gap-4 items-center">
                 <div className="flex flex-col">
                     <h1 className="text-primary-content text-5xl font-bold leading-tight">
@@ -20,7 +60,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         e os equipamentos necessários.
                     </p>
 
-                    <form action="" className="mt-6 grid grid-cols-2 gap-4">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="mt-6 grid grid-cols-2 gap-4"
+                    >
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-primary-content text-xs">
@@ -28,6 +71,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setName(event.target.value)
+                                }
                                 type="text"
                                 className="input input-ghost w-full"
                             />
@@ -40,6 +86,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
                                 type="email"
                                 className="input input-ghost w-full"
                             />
@@ -54,6 +103,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <select
                                 defaultValue="1"
                                 className="select select-ghost"
+                                onChange={(e) => setState(e.target.value)}
                             >
                                 <option value={1} disabled>
                                     ...
@@ -98,6 +148,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setTariff(event.target.value)
+                                }
                                 type="text"
                                 className="input input-ghost w-full"
                             />
@@ -110,6 +163,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setInvoice(event.target.value)
+                                }
                                 type="text"
                                 className="input input-ghost w-full"
                             />
@@ -135,7 +191,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         </div>
 
                         <div className="form-control gap-2 grid grid-cols-2 items-end w-full">
-                            <button className="btn btn-warning text-xs">
+                            <button
+                                onClick={handleSubmit}
+                                className="btn btn-warning text-xs"
+                            >
                                 Calcular
                             </button>
                             <button className="btn btn-warning text-xs">
