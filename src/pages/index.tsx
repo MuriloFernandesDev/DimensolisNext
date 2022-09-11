@@ -1,7 +1,9 @@
 import Image from "next/image";
 import InversoresImg from "../../public/inversores.svg";
+import { fauna } from "../services/db";
+import { query as q } from "faunadb";
 
-export default function Fotovoltaico(): JSX.Element {
+export default function Fotovoltaico({ data }: any): JSX.Element {
     return (
         <>
             <div className="flex flex-col gap-4 items-center">
@@ -9,6 +11,7 @@ export default function Fotovoltaico(): JSX.Element {
                     <h1 className="text-primary-content text-5xl font-bold leading-tight">
                         Calculadora de Energia Solar Fotovoltaica
                     </h1>
+
                     <p className="text-sm text-gray-400 mt-4">
                         A Calculadora de Energia Solar Fotovoltáica é que uma
                         ferramenta virtual para a simulação do custo e tamanho
@@ -49,17 +52,23 @@ export default function Fotovoltaico(): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
+                                defaultValue="1"
                                 className="select select-ghost"
                             >
-                                <option value={1} disabled selected>
-                                    Pick one
+                                <option value={1} disabled>
+                                    ...
                                 </option>
-                                <option value={2}>Star Wars</option>
-                                <option value={3}>Harry Potter</option>
-                                <option value={4}>Lord of the Rings</option>
-                                <option value={5}>Planet of the Apes</option>
-                                <option value={6}>Star Trek</option>
+
+                                {data?.data.map((response: any) => {
+                                    return (
+                                        <option
+                                            key={response.state}
+                                            value={response.state}
+                                        >
+                                            {response.state}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
@@ -70,17 +79,15 @@ export default function Fotovoltaico(): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
+                                defaultValue="1"
                                 className="select select-ghost"
                             >
-                                <option value={1} disabled selected>
-                                    Pick one
-                                </option>
-                                <option value={2}>Star Wars</option>
-                                <option value={3}>Harry Potter</option>
-                                <option value={4}>Lord of the Rings</option>
-                                <option value={5}>Planet of the Apes</option>
-                                <option value={6}>Star Trek</option>
+                                <option value="1">Pick one</option>
+                                <option value="2">Star Wars</option>
+                                <option value="3">Harry Potter</option>
+                                <option value="4">Lord of the Rings</option>
+                                <option value="5">Planet of the Apes</option>
+                                <option value="6">Star Trek</option>
                             </select>
                         </div>
 
@@ -115,17 +122,15 @@ export default function Fotovoltaico(): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
+                                defaultValue="1"
                                 className="select select-ghost"
                             >
-                                <option value={1} disabled selected>
-                                    Pick one
-                                </option>
-                                <option value={2}>Star Wars</option>
-                                <option value={3}>Harry Potter</option>
-                                <option value={4}>Lord of the Rings</option>
-                                <option value={5}>Planet of the Apes</option>
-                                <option value={6}>Star Trek</option>
+                                <option value="1">Pick one</option>
+                                <option value="2">Star Wars</option>
+                                <option value="3">Harry Potter</option>
+                                <option value="4">Lord of the Rings</option>
+                                <option value="5">Planet of the Apes</option>
+                                <option value="6">Star Trek</option>
                             </select>
                         </div>
 
@@ -179,4 +184,24 @@ export default function Fotovoltaico(): JSX.Element {
             </div>
         </>
     );
+}
+
+export async function getStaticProps() {
+    try {
+        const { data }: any = await fauna.query(
+            q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
+        );
+        return {
+            props: {
+                data,
+            },
+            revalidate: 60 * 60 * 24 * 30,
+        };
+    } catch (error) {
+        return {
+            props: {
+                data: null,
+            },
+        };
+    }
 }

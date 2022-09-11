@@ -1,4 +1,7 @@
-export default function Piscina(): JSX.Element {
+import { fauna } from "../services/db";
+import { query as q } from "faunadb";
+
+export default function Piscina({ data }: any): JSX.Element {
     return (
         <>
             <div className="flex flex-col gap-4 items-center">
@@ -49,17 +52,23 @@ export default function Piscina(): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
+                                defaultValue="1"
                                 className="select select-ghost"
                             >
-                                <option value={1} disabled selected>
-                                    Pick one
+                                <option value={1} disabled>
+                                    ...
                                 </option>
-                                <option value={2}>Star Wars</option>
-                                <option value={3}>Harry Potter</option>
-                                <option value={4}>Lord of the Rings</option>
-                                <option value={5}>Planet of the Apes</option>
-                                <option value={6}>Star Trek</option>
+
+                                {data?.data.map((response: any) => {
+                                    return (
+                                        <option
+                                            key={response.state}
+                                            value={response.state}
+                                        >
+                                            {response.state}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
@@ -157,4 +166,24 @@ export default function Piscina(): JSX.Element {
             </div>
         </>
     );
+}
+
+export async function getStaticProps() {
+    try {
+        const { data }: any = await fauna.query(
+            q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
+        );
+        return {
+            props: {
+                data,
+            },
+            revalidate: 60 * 60 * 24 * 30,
+        };
+    } catch (error) {
+        return {
+            props: {
+                data: null,
+            },
+        };
+    }
 }
