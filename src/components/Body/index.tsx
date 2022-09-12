@@ -55,7 +55,7 @@ const Body = ({ children }: BodyProps) => {
     return (
         <>
             <Navbar />
-            <div className="w-full pt-28">
+            <div className="w-full pt-24 md:pt-28">
                 <Image src={BannerRouter} layout="responsive"></Image>
             </div>
             <div className="w-full bg-primary">
@@ -75,13 +75,13 @@ const Body = ({ children }: BodyProps) => {
                         (showBanner === false ? "py-10" : "")
                     }
                 >
-                    <div className="px-4 col-span-3">{children}</div>
+                    <div className="mx-4 md:col-span-3">{children}</div>
                     <div className="px-4 flex flex-col gap-3 pt-10 md:pt-0">
                         <h1 className="text-primary-content font-bold text-2xl">
                             Quer saber mais? leia os artigos do nosso blog!
                         </h1>
 
-                        <div className="grid grid-cols-2 gap-4 md:grid-cols-1">
+                        <div className="grid grid-cols-2 gap-4 md:grid-cols-1 pb-5">
                             {data?.data.map((postBlog: any) => {
                                 return (
                                     <li className="list-none" key={postBlog.id}>

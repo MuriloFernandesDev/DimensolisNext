@@ -6,7 +6,7 @@ export default function Piscina({ data }: any): JSX.Element {
         <>
             <div className="flex flex-col gap-4 items-center">
                 <div className="flex flex-col">
-                    <h1 className="text-primary-content text-5xl font-bold leading-tight">
+                    <h1 className="text-primary-content text-2xl font-bold leading-tight md:text-5xl">
                         Calculadora de Aquecedor Solar para Piscina
                     </h1>
                     <p className="text-sm text-gray-400 mt-4">

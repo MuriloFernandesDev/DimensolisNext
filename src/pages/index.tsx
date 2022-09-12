@@ -3,27 +3,123 @@ import InversoresImg from "../../public/inversores.svg";
 import CatalogoImg from "../../public/fotosolis.svg";
 import { fauna } from "../services/db";
 import { query as q } from "faunadb";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
+import { useLocalStorage } from "../utils/useLocalStorage";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
     const [state, setState] = useState<string>();
-    const [city, setCity] = useState<string>();
+    const [city, setCity] = useState<any>();
     const [tariff, setTariff] = useState<string | number>();
     const [invoice, setInvoice] = useState<string | number>();
-    const [inverter, setInverter] = useState<string>();
+    const [inverter, setInverter] = useState<string | number>();
     const [showModal, setShowModal] = useState(false);
 
-    const handleSubmit = (event: any) => {
-        console.log(state);
+    const handleSubmit = async (event: any) => {
         event.preventDefault();
         setShowModal(!showModal);
         //exibir modal se ocorrer tudo bem
     };
+
+    useEffect(() => {
+        const GetCitys = async () => {
+            const { data }: any = await fauna.query(
+                q.Get(q.Ref(q.Collection("citys"), "342616789934408273"))
+            );
+            switch (state) {
+                case "Acre":
+                    setCity(data.data[0]);
+                    break;
+                case "Alagoas":
+                    setCity(data.data[1]);
+                    break;
+                case "Amapá":
+                    setCity(data.data[2]);
+                    break;
+                case "Amazonas":
+                    setCity(data.data[3]);
+                    break;
+                case "Bahia":
+                    setCity(data.data[4]);
+                    break;
+                case "Ceará":
+                    setCity(data.data[5]);
+                    break;
+                case "Distrito Federal":
+                    setCity(data.data[6]);
+                    break;
+                case "Espírito Santo":
+                    setCity(data.data[7]);
+                    break;
+                case "Goiás":
+                    setCity(data.data[8]);
+                    break;
+                case "Maranhão":
+                    setCity(data.data[9]);
+                    break;
+                case "Mato Grosso":
+                    setCity(data.data[10]);
+                    break;
+                case "Mato Grosso do Sul":
+                    setCity(data.data[11]);
+                    break;
+                case "Minas Gerais":
+                    setCity(data.data[12]);
+                    break;
+                case "Pará":
+                    setCity(data.data[13]);
+                    break;
+                case "Paraíba":
+                    setCity(data.data[14]);
+                    break;
+                case "Paraná":
+                    setCity(data.data[15]);
+                    break;
+                case "Pernanbuco":
+                    setCity(data.data[16]);
+                    break;
+                case "Piauí":
+                    setCity(data.data[17]);
+                    break;
+                case "Rio de Janeiro":
+                    setCity(data.data[18]);
+                    break;
+                case "Rio Grande do Norte":
+                    setCity(data.data[19]);
+                    break;
+                case "Rio Grande do Sul":
+                    setCity(data.data[20]);
+                    break;
+                case "Rondônia":
+                    setCity(data.data[21]);
+                    break;
+                case "Roraima":
+                    setCity(data.data[22]);
+                    break;
+                case "Santa Catarina":
+                    setCity(data.data[23]);
+                    break;
+                case "São Paulo":
+                    setCity(data.data[24]);
+                    break;
+                case "Sergipe":
+                    setCity(data.data[25]);
+                    break;
+                case "Tocantins":
+                    setCity(data.data[26]);
+                    break;
+                case "Distrito Federal":
+                    setCity(data.data[27]);
+                    break;
+            }
+        };
+
+        GetCitys();
+    }, [state]);
 
     return (
         <>
@@ -130,7 +226,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             )}
             <div className="flex flex-col gap-4 items-center">
                 <div className="flex flex-col">
-                    <h1 className="text-primary-content text-5xl font-bold leading-tight">
+                    <h1 className="text-primary-content text-2xl font-bold leading-tight md:text-5xl">
                         Calculadora de Energia Solar Fotovoltaica
                     </h1>
 
@@ -143,8 +239,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                     </p>
 
                     <form
-                        onSubmit={handleSubmit}
-                        className="mt-6 grid grid-cols-2 gap-4"
+                        onSubmit={(event) => event.preventDefault()}
+                        className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"
                     >
                         <div className="form-control w-full">
                             <label className="label">
@@ -214,12 +310,16 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 defaultValue="1"
                                 className="select select-ghost"
                             >
-                                <option value="1">Pick one</option>
-                                <option value="2">Star Wars</option>
-                                <option value="3">Harry Potter</option>
-                                <option value="4">Lord of the Rings</option>
-                                <option value="5">Planet of the Apes</option>
-                                <option value="6">Star Trek</option>
+                                <option value="1" disabled>
+                                    ...
+                                </option>
+                                {city?.state.map((res: any) => {
+                                    return (
+                                        <option key={res} value={res}>
+                                            {res}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
@@ -233,7 +333,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 onChange={(event) =>
                                     setTariff(event.target.value)
                                 }
-                                type="text"
+                                type="tel"
                                 className="input input-ghost w-full"
                             />
                         </div>
@@ -248,7 +348,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 onChange={(event) =>
                                     setInvoice(event.target.value)
                                 }
-                                type="text"
+                                type="tel"
                                 className="input input-ghost w-full"
                             />
                         </div>
@@ -262,13 +362,12 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <select
                                 defaultValue="1"
                                 className="select select-ghost"
+                                onChange={(e) => {
+                                    setInverter(e.target.value);
+                                }}
                             >
-                                <option value="1">Pick one</option>
-                                <option value="2">Star Wars</option>
-                                <option value="3">Harry Potter</option>
-                                <option value="4">Lord of the Rings</option>
-                                <option value="5">Planet of the Apes</option>
-                                <option value="6">Star Trek</option>
+                                <option value="1">Afore</option>
+                                <option value="2">SMA</option>
                             </select>
                         </div>
 
@@ -296,12 +395,12 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <br />4 – Soluções com inversores da Growatt e
                             inversor Alemão SMA;
                         </span>
-                        <div className="grid grid-cols-2 gap-5 mt-10">
+                        <div className="grid grid-cols-1 gap-5 mt-10 md:grid-cols-2">
                             <div>
                                 <p className="text-primary-content font-bold text-2xl">
                                     Conheça nossos inversores
                                 </p>
-                                <div className="p-5 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                                <div className="p-5 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
                                     <Image
                                         src={InversoresImg}
                                         layout="responsive"
@@ -312,7 +411,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 <p className="text-primary-content font-bold text-2xl">
                                     Catálogo digital
                                 </p>
-                                <div className="relative -m-2 mt-1 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                                <div className="relative -m-2 mt-1 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
                                     <Image
                                         src={CatalogoImg}
                                         layout="responsive"
@@ -332,6 +431,7 @@ export async function getStaticProps() {
         const { data }: any = await fauna.query(
             q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
         );
+
         return {
             props: {
                 data,
