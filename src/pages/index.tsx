@@ -116,7 +116,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </a>
                                 <a
                                     href="https://api.whatsapp.com/send?phone=5518996241104"
-                                    target={"_blank"}
+                                    target="_blank"
                                     className="btn btn-warning w-full font-bold text-black"
                                 >
                                     Orçamento

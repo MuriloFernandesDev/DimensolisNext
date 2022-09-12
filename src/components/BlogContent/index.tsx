@@ -31,6 +31,7 @@ const BlogContent = ({
                             height={150}
                             src={ImageBlog}
                             layout="responsive"
+                            alt="Imagem"
                         ></Image>
                     </div>
                     <div className="flex gap-2 w-3/4 justify-start">
