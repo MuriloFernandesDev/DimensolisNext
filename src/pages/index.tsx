@@ -1,5 +1,6 @@
 import Image from "next/image";
 import InversoresImg from "../../public/inversores.svg";
+import CatalogoImg from "../../public/fotosolis.svg";
 import { fauna } from "../services/db";
 import { query as q } from "faunadb";
 import { useState } from "react";
@@ -309,11 +310,11 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             </div>
                             <div>
                                 <p className="text-primary-content font-bold text-2xl">
-                                    Conheça nossos inversores
+                                    Catálogo digital
                                 </p>
-                                <div className="p-5 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                                <div className="relative -m-2 mt-1 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl">
                                     <Image
-                                        src={InversoresImg}
+                                        src={CatalogoImg}
                                         layout="responsive"
                                     ></Image>
                                 </div>
