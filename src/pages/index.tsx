@@ -7,21 +7,52 @@ import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
-import { useLocalStorage } from "../utils/useLocalStorage";
+import toast from "react-hot-toast";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
     const [state, setState] = useState<string>();
     const [city, setCity] = useState<any>();
+    const [citySelected, setCitySelected] = useState<any>();
     const [tariff, setTariff] = useState<string | number>();
     const [invoice, setInvoice] = useState<string | number>();
     const [inverter, setInverter] = useState<string | number>();
     const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (event: any) => {
-        event.preventDefault();
-        setShowModal(!showModal);
+        if (!name) {
+            toast.error("insira o campo nome!");
+            return;
+        }
+        if (!email) {
+            toast.error("insira o campo email!");
+            return;
+        }
+        if (!state) {
+            toast.error("Selecione um estado!");
+            return;
+        }
+        if (!citySelected) {
+            toast.error("Selecione uma cidade!");
+            return;
+        }
+        if (!tariff) {
+            toast.error("Insira a tarifa!");
+            return;
+        }
+        if (!invoice) {
+            toast.error("Insira sua fatura!");
+            return;
+        }
+        if (!inverter) {
+            toast.error("Selecione seu inversor!");
+            return;
+        }
+        if (name && email && state && city && tariff && invoice && inverter) {
+            setShowModal(!showModal);
+        }
+
         //exibir modal se ocorrer tudo bem
     };
 
@@ -120,6 +151,20 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
         GetCitys();
     }, [state]);
+
+    function formatarMoeda(e: any) {
+        var v = e?.target.value.replace(/\D/g, "");
+
+        v = "R$ " + (v / 100).toFixed(2);
+
+        v = v.replace(".", ",");
+
+        v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+
+        v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+
+        e.target.value = v;
+    }
 
     return (
         <>
@@ -307,19 +352,28 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="1"
+                                defaultValue={1}
                                 className="select select-ghost"
+                                onChange={(e) =>
+                                    setCitySelected(e.target.value)
+                                }
                             >
-                                <option value="1" disabled>
+                                <option value={1} disabled>
                                     ...
                                 </option>
-                                {city?.state.map((res: any) => {
-                                    return (
-                                        <option key={res} value={res}>
-                                            {res}
-                                        </option>
-                                    );
-                                })}
+                                {!state ? (
+                                    <option value="2" disabled>
+                                        Selecione um estado antes
+                                    </option>
+                                ) : (
+                                    city?.state.map((res: any) => {
+                                        return (
+                                            <option key={res} value={res}>
+                                                {res}
+                                            </option>
+                                        );
+                                    })
+                                )}
                             </select>
                         </div>
 
@@ -330,7 +384,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
-                                onChange={(event) =>
+                                onKeyUp={(e) => formatarMoeda(e)}
+                                onChange={(event: any) =>
                                     setTariff(event.target.value)
                                 }
                                 type="tel"
@@ -345,6 +400,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onKeyUp={(e) => formatarMoeda(e)}
                                 onChange={(event) =>
                                     setInvoice(event.target.value)
                                 }
