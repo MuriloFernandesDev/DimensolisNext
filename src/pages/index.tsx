@@ -57,6 +57,20 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     };
 
     useEffect(() => {
+        const teste = async () => {
+            await fauna
+                .query(q.Get(q.Index("LocationsIndex")))
+                .then((ret) => console.log(ret))
+                .catch((err) =>
+                    console.error(
+                        "Error: [%s] %s: %s",
+                        err.name,
+                        err.message,
+                        err.errors()[0].description
+                    )
+                );
+        };
+        teste();
         const GetCitys = async () => {
             const { data }: any = await fauna.query(
                 q.Get(q.Ref(q.Collection("citys"), "342616789934408273"))
@@ -149,7 +163,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             }
         };
 
-        GetCitys();
+        // GetCitys();
     }, [state]);
 
     function formatarMoeda(e: any) {
@@ -487,7 +501,6 @@ export async function getStaticProps() {
         const { data }: any = await fauna.query(
             q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
         );
-
         return {
             props: {
                 data,

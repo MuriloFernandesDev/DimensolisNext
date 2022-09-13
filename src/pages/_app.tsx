@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ThemeProvider defaultTheme="system">
-            <Toaster position="top-center" reverseOrder={false} />
+            <Toaster position="top-left" reverseOrder={false} />
             <Body>
                 <Component {...pageProps} />
             </Body>

@@ -12,33 +12,16 @@ import {
     faLinkedin,
     faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 const Footer = () => {
-    const [showBanner, setShowBanner] = useState(false);
-    const router = useRouter();
-
-    useEffect(() => {
-        if (router.asPath === "/") {
-            setShowBanner(true);
-        } else {
-            setShowBanner(false);
-        }
-    }, [router]);
-
     return (
         <div className="py-10 bg-secondary px-5">
-            {showBanner == true ? (
-                <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4">
-                    <Image src={BF1Img} layout="responsive"></Image>
-                    <Image src={BF2Img} layout="responsive"></Image>
-                    <Image src={BF3Img} layout="responsive"></Image>
-                    <Image src={BF4Img} layout="responsive"></Image>
-                </div>
-            ) : (
-                ""
-            )}
+            <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4">
+                <Image src={BF1Img} layout="responsive"></Image>
+                <Image src={BF2Img} layout="responsive"></Image>
+                <Image src={BF3Img} layout="responsive"></Image>
+                <Image src={BF4Img} layout="responsive"></Image>
+            </div>
 
             <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:pl-10 md:items-end md:flex-row">
                 <div className="grid gap-4 text-center md:text-start">
