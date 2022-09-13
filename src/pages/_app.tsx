@@ -6,12 +6,12 @@ import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <ThemeProvider defaultTheme="system">
+        <>
             <Toaster position="top-left" reverseOrder={false} />
             <Body>
                 <Component {...pageProps} />
             </Body>
-        </ThemeProvider>
+        </>
     );
 }
 

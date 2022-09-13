@@ -20,15 +20,6 @@ module.exports = {
                     "primary-content": "#00833D",
                     "primary-focus": "#006A31",
                 },
-                dark: {
-                    ...require("daisyui/src/colors/themes")[
-                        "[data-theme=dark]"
-                    ],
-                    primary: "#ffffff",
-                    secondary: "#4A5056",
-                    "primary-content": "#00833D",
-                    "primary-focus": "#006A31",
-                },
             },
         ],
     },
