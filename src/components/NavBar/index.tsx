@@ -11,7 +11,7 @@ import {
 import { ReactElement } from "react";
 
 interface NavProps {
-    children: ReactElement;
+    children: any;
 }
 
 const Navbar = ({ children }: NavProps) => {
