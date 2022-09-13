@@ -1,6 +1,6 @@
 import Image from "next/image";
-import InversoresImg from "../../public/inversores.svg";
-import CatalogoImg from "../../public/fotosolis.svg";
+import InversoresImg from "../assets/images/inversores.svg";
+import CatalogoImg from "../assets/images/fotosolis.svg";
 import { fauna } from "../services/db";
 import { query as q } from "faunadb";
 import { useEffect, useState } from "react";

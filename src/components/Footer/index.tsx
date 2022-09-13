@@ -1,9 +1,9 @@
 import Image from "next/image";
-import FooterImg from "../../../public/image8.png";
-import BF1Img from "../../../public/banners/BF1.svg";
-import BF2Img from "../../../public/banners/BF2.svg";
-import BF3Img from "../../../public/banners/BF3.svg";
-import BF4Img from "../../../public/banners/BF4.svg";
+import FooterImg from "../../assets/images/image8.png";
+import BF1Img from "../../assets/images/banners/BF1.svg";
+import BF2Img from "../../assets/images/banners/BF2.svg";
+import BF3Img from "../../assets/images/banners/BF3.svg";
+import BF4Img from "../../assets/images/banners/BF4.svg";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

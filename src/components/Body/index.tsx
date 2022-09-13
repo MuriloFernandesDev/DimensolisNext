@@ -3,14 +3,14 @@ import { ReactElement, useEffect, useState } from "react";
 import BlogContent from "../BlogContent";
 import Footer from "../Footer";
 import Navbar from "../NavBar";
-import BF1Img from "../../../public/banners/BF1.svg";
-import BF2Img from "../../../public/banners/BF2.svg";
-import BF3Img from "../../../public/banners/BF3.svg";
-import BF4Img from "../../../public/banners/BF4.svg";
+import BF1Img from "../../assets/images/banners/BF1.svg";
+import BF2Img from "../../assets/images/banners/BF2.svg";
+import BF3Img from "../../assets/images/banners/BF3.svg";
+import BF4Img from "../../assets/images/banners/BF4.svg";
 import { useRouter } from "next/router";
-import Banner01Img from "../../../public/banners/01.png";
-import Banner02Img from "../../../public/banners/02.png";
-import Banner03Img from "../../../public/banners/03.png";
+import Banner01Img from "../../assets/images/banners/01.png";
+import Banner02Img from "../../assets/images/banners/02.png";
+import Banner03Img from "../../assets/images/banners/03.png";
 import axios from "axios";
 
 interface BodyProps {
