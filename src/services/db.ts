@@ -1,5 +1,13 @@
-import { Client } from "faunadb";
+import axios from "axios";
+import { GetServerSidePropsContext } from "next/types";
 
-export const fauna = new Client({
-    secret: "fnAEwYlB_oACUOKxgNIMfpoKWlegrBO3aUZkJ8ai",
-});
+export function setupAPIClient(
+    endpoint: string,
+    ctx?: GetServerSidePropsContext
+) {
+    const api = axios.create({
+        baseURL: `https://api.${endpoint}.com.br/`,
+    });
+
+    return api;
+}

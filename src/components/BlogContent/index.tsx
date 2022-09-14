@@ -7,7 +7,7 @@ import { date } from "../../utils/masks";
 
 interface BlogContentProps {
     image: string;
-    category: string;
+    category: any;
     title: string;
     data: string;
     link: string;
@@ -25,23 +25,36 @@ const BlogContent = ({
         <div className="card card-compact w-full h-full drop-shadow-sm shadow-black border-2 bg-primary transition-all md:hover:scale-105 duration-300 md:hover:shadow-xl">
             <div className="card-body flex flex-col justify-between">
                 <div className="flex flex-col gap-2">
-                    <div className="bg-warning w-full pb-2 rounded-md">
-                        <Image
+                    <div className="bg-warning w-full pb-1 rounded-md">
+                        <img
                             className="rounded-t-md"
-                            width={200}
-                            height={150}
-                            src={ImageBlog}
-                            layout="responsive"
+                            src={image}
                             alt="Imagem"
-                        ></Image>
+                        ></img>
                     </div>
-                    <div className="flex gap-2 w-3/4 justify-start">
-                        <p className="text-warning bg-[#E1E1E6] text-xs rounded-md p-1 flex justify-center">
-                            {category}
-                        </p>
-                        <p className="text-warning bg-[#E1E1E6] text-xs rounded-md p-1 flex justify-center">
-                            {category}
-                        </p>
+                    <div className="flex flex-wrap gap-3">
+                        {category.map((response: any) => {
+                            return (
+                                <p
+                                    key={response}
+                                    className="text-warning bg-[#E1E1E6] text-xs rounded-md p-1 flex justify-center"
+                                >
+                                    {response === 26
+                                        ? "Fotovoltaico"
+                                        : response === 22
+                                        ? "Informativos"
+                                        : response === 20
+                                        ? "Aquecedor Solar"
+                                        : response === 24
+                                        ? "Banho"
+                                        : response === 21
+                                        ? "Aquecedor solar para piscína"
+                                        : response === 25
+                                        ? "Piscina"
+                                        : "Solis"}
+                                </p>
+                            );
+                        })}
                     </div>
                     <h1 className="text-slate-700 font-semibold">
                         {TitleReplace}

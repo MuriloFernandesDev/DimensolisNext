@@ -1,8 +1,7 @@
 import Image from "next/image";
 import InversoresImg from "../assets/images/inversores.svg";
 import CatalogoImg from "../assets/images/fotosolis.svg";
-import { fauna } from "../services/db";
-import { query as q } from "faunadb";
+import { api } from "../services/apiconfig";
 import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,13 +14,14 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     const [email, setEmail] = useState<string>();
     const [state, setState] = useState<string>();
     const [city, setCity] = useState<any>();
-    const [citySelected, setCitySelected] = useState<any>();
+    const [citySelected, setCitySelected] = useState<any>(1);
     const [tariff, setTariff] = useState<string | number>();
-    const [invoice, setInvoice] = useState<string | number>();
+    const [invoice, setInvoice] = useState<any>();
     const [inverter, setInverter] = useState<string | number>();
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
 
     const handleSubmit = async (event: any) => {
+        setShowModal(!showModal);
         if (!name) {
             toast.error("insira o campo nome!");
             return;
@@ -50,121 +50,37 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             toast.error("Selecione seu inversor!");
             return;
         }
-        if (name && email && state && city && tariff && invoice && inverter) {
-            setShowModal(!showModal);
+        if (
+            name &&
+            email &&
+            state &&
+            citySelected &&
+            tariff &&
+            invoice &&
+            inverter
+        ) {
+            const data = {
+                inversor: inverter,
+                city: citySelected,
+                invoice: invoice
+                    .replace("R$", "")
+                    .replace(/,/g, "")
+                    .replace(/ /g, "")
+                    .replace("00", ""),
+                tax: 0.7,
+            };
+            await api
+                .post(`photovoltaic`, data)
+                .then((response) => console.log(response));
         }
-
-        //exibir modal se ocorrer tudo bem
     };
 
     useEffect(() => {
-        const teste = async () => {
-            await fauna
-                .query(q.Get(q.Index("LocationsIndex")))
-                .then((ret) => console.log(ret))
-                .catch((err) =>
-                    console.error(
-                        "Error: [%s] %s: %s",
-                        err.name,
-                        err.message,
-                        err.errors()[0].description
-                    )
-                );
-        };
-        teste();
         const GetCitys = async () => {
-            const { data }: any = await fauna.query(
-                q.Get(q.Ref(q.Collection("citys"), "342616789934408273"))
-            );
-            switch (state) {
-                case "Acre":
-                    setCity(data.data[0]);
-                    break;
-                case "Alagoas":
-                    setCity(data.data[1]);
-                    break;
-                case "Amapá":
-                    setCity(data.data[2]);
-                    break;
-                case "Amazonas":
-                    setCity(data.data[3]);
-                    break;
-                case "Bahia":
-                    setCity(data.data[4]);
-                    break;
-                case "Ceará":
-                    setCity(data.data[5]);
-                    break;
-                case "Distrito Federal":
-                    setCity(data.data[6]);
-                    break;
-                case "Espírito Santo":
-                    setCity(data.data[7]);
-                    break;
-                case "Goiás":
-                    setCity(data.data[8]);
-                    break;
-                case "Maranhão":
-                    setCity(data.data[9]);
-                    break;
-                case "Mato Grosso":
-                    setCity(data.data[10]);
-                    break;
-                case "Mato Grosso do Sul":
-                    setCity(data.data[11]);
-                    break;
-                case "Minas Gerais":
-                    setCity(data.data[12]);
-                    break;
-                case "Pará":
-                    setCity(data.data[13]);
-                    break;
-                case "Paraíba":
-                    setCity(data.data[14]);
-                    break;
-                case "Paraná":
-                    setCity(data.data[15]);
-                    break;
-                case "Pernanbuco":
-                    setCity(data.data[16]);
-                    break;
-                case "Piauí":
-                    setCity(data.data[17]);
-                    break;
-                case "Rio de Janeiro":
-                    setCity(data.data[18]);
-                    break;
-                case "Rio Grande do Norte":
-                    setCity(data.data[19]);
-                    break;
-                case "Rio Grande do Sul":
-                    setCity(data.data[20]);
-                    break;
-                case "Rondônia":
-                    setCity(data.data[21]);
-                    break;
-                case "Roraima":
-                    setCity(data.data[22]);
-                    break;
-                case "Santa Catarina":
-                    setCity(data.data[23]);
-                    break;
-                case "São Paulo":
-                    setCity(data.data[24]);
-                    break;
-                case "Sergipe":
-                    setCity(data.data[25]);
-                    break;
-                case "Tocantins":
-                    setCity(data.data[26]);
-                    break;
-                case "Distrito Federal":
-                    setCity(data.data[27]);
-                    break;
-            }
+            const { data } = await api.get(`cities/${state}`);
+            setCity(data);
         };
-
-        // GetCitys();
+        GetCitys();
     }, [state]);
 
     return (
@@ -333,13 +249,13 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     ...
                                 </option>
 
-                                {data?.data.map((response: any) => {
+                                {data.map((response: any) => {
                                     return (
                                         <option
-                                            key={response.state}
-                                            value={response.state}
+                                            key={response.id}
+                                            value={response.id}
                                         >
-                                            {response.state}
+                                            {response.name}
                                         </option>
                                     );
                                 })}
@@ -362,11 +278,12 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 <option value={1} disabled>
                                     ...
                                 </option>
-                                {!state ? (
-                                    <option value="2" disabled>
-                                        Selecione um estado antes
-                                    </option>
-                                ) : (
+                                {
+                                    // !state ? (
+                                    //     <option value="2" disabled>
+                                    //         Selecione um estado antes
+                                    //     </option>
+                                    // ) : (
                                     city?.state.map((res: any) => {
                                         return (
                                             <option key={res} value={res}>
@@ -374,7 +291,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                             </option>
                                         );
                                     })
-                                )}
+                                    // )
+                                }
                             </select>
                         </div>
 
@@ -485,9 +403,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
 export async function getStaticProps() {
     try {
-        const { data }: any = await fauna.query(
-            q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
-        );
+        const { data }: any = await api.get("/states");
         return {
             props: {
                 data,

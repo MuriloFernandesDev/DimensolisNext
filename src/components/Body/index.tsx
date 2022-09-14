@@ -70,9 +70,12 @@ const Body = ({ children }: BodyProps) => {
                                         >
                                             <BlogContent
                                                 image={
-                                                    "https://solissolar.com.br/wp-content/uploads/2022/08/miniatura_tp-min.jpg"
+                                                    postBlog
+                                                        .better_featured_image
+                                                        .media_details.sizes
+                                                        .medium_large.source_url
                                                 }
-                                                category={"teste"}
+                                                category={postBlog.categories}
                                                 title={postBlog.title.rendered}
                                                 data={postBlog.date}
                                                 link={postBlog.link}

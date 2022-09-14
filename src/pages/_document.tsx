@@ -5,6 +5,11 @@ export default class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <script
+                        type="text/javascript"
+                        async
+                        src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/645a6bda-bfdf-4377-92f9-c42f37625a5b-loader.js"
+                    ></script>
                     <meta charSet="utf-8" />
                     <link
                         rel="preconnect"
