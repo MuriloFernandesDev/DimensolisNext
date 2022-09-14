@@ -8,6 +8,7 @@ import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
+import { formatarMoeda } from "../utils/masks";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -165,20 +166,6 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
         // GetCitys();
     }, [state]);
-
-    function formatarMoeda(e: any) {
-        var v = e?.target.value.replace(/\D/g, "");
-
-        v = "R$ " + (v / 100).toFixed(2);
-
-        v = v.replace(".", ",");
-
-        v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-
-        v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-
-        e.target.value = v;
-    }
 
     return (
         <>

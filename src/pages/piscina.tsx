@@ -1,7 +1,56 @@
 import { fauna } from "../services/db";
 import { query as q } from "faunadb";
+import { formatarMoeda } from "../utils/masks";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function Piscina({ data }: any): JSX.Element {
+    const [name, setName] = useState<string>();
+    const [email, setEmail] = useState<string>();
+    const [state, setState] = useState<string>();
+    const [city, setCity] = useState<any>();
+    const [citySelected, setCitySelected] = useState<any>();
+    const [tariff, setTariff] = useState<string | number>();
+    const [invoice, setInvoice] = useState<string | number>();
+    const [inverter, setInverter] = useState<string | number>();
+    const [showModal, setShowModal] = useState(false);
+
+    const handleSubmit = async (event: any) => {
+        if (!name) {
+            toast.error("insira o campo nome!");
+            return;
+        }
+        if (!email) {
+            toast.error("insira o campo email!");
+            return;
+        }
+        if (!state) {
+            toast.error("Selecione um estado!");
+            return;
+        }
+        if (!citySelected) {
+            toast.error("Selecione uma cidade!");
+            return;
+        }
+        if (!tariff) {
+            toast.error("Insira a tarifa!");
+            return;
+        }
+        if (!invoice) {
+            toast.error("Insira sua fatura!");
+            return;
+        }
+        if (!inverter) {
+            toast.error("Selecione seu inversor!");
+            return;
+        }
+        if (name && email && state && city && tariff && invoice && inverter) {
+            setShowModal(!showModal);
+        }
+
+        //exibir modal se ocorrer tudo bem
+    };
+
     return (
         <>
             <div className="flex flex-col gap-4 items-center">
@@ -20,7 +69,10 @@ export default function Piscina({ data }: any): JSX.Element {
                         necessários.
                     </p>
 
-                    <form action="" className="mt-6 grid grid-cols-2 gap-4">
+                    <form
+                        onSubmit={(event) => event.preventDefault()}
+                        className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"
+                    >
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-primary-content text-xs">
@@ -28,6 +80,9 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setName(event.target.value)
+                                }
                                 type="text"
                                 className="input input-ghost w-full"
                             />
@@ -40,6 +95,9 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
                                 type="email"
                                 className="input input-ghost w-full"
                             />
@@ -54,6 +112,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             <select
                                 defaultValue="1"
                                 className="select select-ghost"
+                                onChange={(e) => setState(e.target.value)}
                             >
                                 <option value={1} disabled>
                                     ...
@@ -79,17 +138,28 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={2}
+                                defaultValue={1}
                                 className="select select-ghost"
+                                onChange={(e) =>
+                                    setCitySelected(e.target.value)
+                                }
                             >
-                                <option value={1} disabled selected>
-                                    Pick one
+                                <option value={1} disabled>
+                                    ...
                                 </option>
-                                <option value={2}>Star Wars</option>
-                                <option value={3}>Harry Potter</option>
-                                <option value={4}>Lord of the Rings</option>
-                                <option value={5}>Planet of the Apes</option>
-                                <option value={6}>Star Trek</option>
+                                {!state ? (
+                                    <option value="2" disabled>
+                                        Selecione um estado antes
+                                    </option>
+                                ) : (
+                                    city?.state.map((res: any) => {
+                                        return (
+                                            <option key={res} value={res}>
+                                                {res}
+                                            </option>
+                                        );
+                                    })
+                                )}
                             </select>
                         </div>
 
@@ -100,7 +170,10 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
-                                type="text"
+                                onChange={(event: any) =>
+                                    setTariff(event.target.value)
+                                }
+                                type="tel"
                                 className="input input-ghost w-full"
                             />
                         </div>
@@ -116,6 +189,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                 className="input input-ghost w-full"
                             />
                         </div>
+
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-primary-content text-xs">
@@ -127,6 +201,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                 className="input input-ghost w-full"
                             />
                         </div>
+
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-primary-content text-xs">
@@ -138,16 +213,18 @@ export default function Piscina({ data }: any): JSX.Element {
                                 className="input input-ghost w-full"
                             />
                         </div>
-
-                        <div className="form-control gap-2 grid grid-cols-2 justify-end w-full col-span-2">
-                            <button className="btn btn-warning text-xs">
-                                Calcular
-                            </button>
-                            <button className="btn btn-warning text-xs">
-                                Solicitar Orçamento
-                            </button>
-                        </div>
                     </form>
+                    <div className="form-control gap-2 grid grid-cols-2 items-end w-full">
+                        <button
+                            onClick={handleSubmit}
+                            className="btn btn-warning text-xs"
+                        >
+                            Calcular
+                        </button>
+                        <button className="btn btn-warning text-xs">
+                            Solicitar Orçamento
+                        </button>
+                    </div>
 
                     <div className="mt-10">
                         <span className="w-full text-sm text-black">

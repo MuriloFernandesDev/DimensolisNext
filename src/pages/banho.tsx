@@ -4,19 +4,60 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/styles.module.scss";
+import toast from "react-hot-toast";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
     const [state, setState] = useState<string>();
     const [city, setCity] = useState<any>();
+    const [citySelected, setCitySelected] = useState<any>();
     const [climate, setClimate] = useState<string>();
     const [person, setPerson] = useState<any>();
     const [numberBaths, setNumberBaths] = useState<any>();
     const [showModal, setShowModal] = useState(false);
 
     const handleSubmit = async (event: any) => {
-        setShowModal(!showModal);
+        if (!name) {
+            toast.error("insira o campo nome!");
+            return;
+        }
+        if (!email) {
+            toast.error("insira o campo email!");
+            return;
+        }
+        if (!state) {
+            toast.error("Selecione um estado!");
+            return;
+        }
+        if (!citySelected) {
+            toast.error("Selecione uma cidade!");
+            return;
+        }
+        if (!climate) {
+            toast.error("Insira um clima!");
+            return;
+        }
+        if (!person) {
+            toast.error("Insira o número de pessoas!");
+            return;
+        }
+        if (!numberBaths) {
+            toast.error("Selecione o número de banhos!");
+            return;
+        }
+        if (
+            name &&
+            email &&
+            state &&
+            citySelected &&
+            climate &&
+            person &&
+            numberBaths
+        ) {
+            setShowModal(!showModal);
+        }
+
         //exibir modal se ocorrer tudo bem
     };
 
@@ -308,8 +349,11 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue="1"
+                                        defaultValue={1}
                                         className="select select-ghost"
+                                        onChange={(e) =>
+                                            setCitySelected(e.target.value)
+                                        }
                                     >
                                         <option value="1" disabled>
                                             ...
@@ -324,7 +368,7 @@ export default function Banho({ data }: any) {
                                     </select>
                                 </div>
                             </div>
-                            <div className="flex gap-3 w-full">
+                            <div className="grid-cols-2 grid gap-3 w-full">
                                 <div className="form-control w-full">
                                     <label className="label">
                                         <span className="label-text text-primary-content text-xs">
