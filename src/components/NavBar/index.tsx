@@ -19,7 +19,7 @@ const Navbar = ({ children }: NavProps) => {
         <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
-                <div className="navbar p-0 pt-2 flex-col h-20 md:h-28 fixed z-20 bg-primary">
+                <div className="navbar p-0 pt-3 flex-col h-20 md:h-28 fixed z-20 bg-primary">
                     <div className="max-w-7xl px-6 mx-auto w-full justify-between">
                         <div className="self-baseline w-44 md:w-60">
                             <Link href={"/"}>

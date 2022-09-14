@@ -21,7 +21,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     const [showModal, setShowModal] = useState(true);
 
     const handleSubmit = async (event: any) => {
-        setShowModal(!showModal);
+        // setShowModal(!showModal);
         if (!name) {
             toast.error("insira o campo nome!");
             return;
