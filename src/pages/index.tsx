@@ -2,23 +2,29 @@ import Image from "next/image";
 import InversoresImg from "../assets/images/inversores.svg";
 import CatalogoImg from "../assets/images/fotosolis.svg";
 import { api } from "../services/apiconfig";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { formatarMoeda } from "../utils/masks";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
-    const [state, setState] = useState<string>();
-    const [city, setCity] = useState<any>();
-    const [citySelected, setCitySelected] = useState<any>(1);
-    const [tariff, setTariff] = useState<string | number>();
+    const [state, setState] = useState<any>();
+    const [city, setCity] = useState<any>([{}]);
+    const [citySelected, setCitySelected] = useState<any>();
+    const [tariff, setTariff] = useState<any>(0.7);
     const [invoice, setInvoice] = useState<any>();
     const [inverter, setInverter] = useState<string | number>();
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [inverterModal, setInverterModal] = useState();
+    const [moduleModal, setModuleModal] = useState();
+    const [descriptionModal, setDescriptionModal] = useState();
+    const [generationModal, setGenerationModal] = useState();
 
     const handleSubmit = async (event: any) => {
         // setShowModal(!showModal);
@@ -34,10 +40,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             toast.error("Selecione um estado!");
             return;
         }
-        if (!citySelected) {
-            toast.error("Selecione uma cidade!");
-            return;
-        }
+        // if (!citySelected) {
+        //     toast.error("Selecione uma cidade!");
+        //     return;
+        // }
         if (!tariff) {
             toast.error("Insira a tarifa!");
             return;
@@ -54,33 +60,93 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             name &&
             email &&
             state &&
-            citySelected &&
+            // citySelected &&
             tariff &&
             invoice &&
             inverter
         ) {
             const data = {
                 inversor: inverter,
-                city: citySelected,
+                city: 2,
                 invoice: invoice
                     .replace("R$", "")
                     .replace(/,/g, "")
                     .replace(/ /g, "")
                     .replace("00", ""),
-                tax: 0.7,
+                tax: tariff,
             };
-            await api
-                .post(`photovoltaic`, data)
-                .then((response) => console.log(response));
+
+            try {
+                const response = await api.post(`photovoltaic`, data);
+                console.log(response);
+
+                if (response.data.error) {
+                    if (
+                        response.data.error ==
+                        "Para Kits acima de 40 módulos fotovoltaicos, consultar a Solis"
+                    ) {
+                        toast.custom((t) => (
+                            <div
+                                className={`${
+                                    t.visible
+                                        ? "animate-enter"
+                                        : "animate-leave"
+                                } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                            >
+                                <div className="flex-1 w-0 p-4">
+                                    <div className="flex items-start">
+                                        <div className="ml-3 flex flex-row-reverse items-center justify-center gap-3">
+                                            <p className="text-sm font-medium text-info-content">
+                                                {response.data.error}
+                                            </p>
+                                            <Link
+                                                href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
+                                                target={"_blank"}
+                                            >
+                                                <a
+                                                    className="contents"
+                                                    target={"_blank"}
+                                                >
+                                                    <FontAwesomeIcon
+                                                        className="w-10 h-10 text-warning"
+                                                        icon={faWhatsapp}
+                                                    />
+                                                </a>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex border-l border-gray-200">
+                                    <button
+                                        onClick={() => toast.dismiss(t.id)}
+                                        className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-info-content"
+                                    >
+                                        Fechar
+                                    </button>
+                                </div>
+                            </div>
+                        ));
+
+                        return;
+                    }
+                    toast.error(response.data.error);
+                    return;
+                }
+                setDescriptionModal(response.data.description);
+                setGenerationModal(response.data.generation);
+                setModuleModal(response.data.modules);
+                setInverterModal(response.data.inversors);
+                setShowModal(!showModal);
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
     useEffect(() => {
-        const GetCitys = async () => {
-            const { data } = await api.get(`cities/${state}`);
-            setCity(data);
-        };
-        GetCitys();
+        data.map((res: any) => {
+            return res.id === parseInt(state) ? setCity(res.cities) : null;
+        });
     }, [state]);
 
     return (
@@ -115,6 +181,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                         </span>
                                     </h1>
                                 </div>
+
                                 <div className="flex">
                                     <FontAwesomeIcon
                                         icon={faBolt}
@@ -123,7 +190,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     <div className="flex flex-col items-center">
                                         {" "}
                                         <p className="text-6xl font-bold text-primary-content">
-                                            785
+                                            {generationModal}
                                         </p>
                                         <p className="text-primary-content text-base">
                                             kWh/mês
@@ -138,17 +205,13 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                         7,695
                                     </h1>
                                     <p className="text-sm text-primary-content">
-                                        <span className="text-warning font-semibold">
-                                            kWp
-                                        </span>{" "}
-                                        - Sistemas
-                                        <br /> fotovoltaicos Solis
+                                        {descriptionModal}
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-2 w-1/2">
                                     <div className="flex flex-col items-center">
                                         <p className="text-6xl font-bold text-primary-content">
-                                            19
+                                            {moduleModal}
                                         </p>
                                         <p className="text-base text-primary-content">
                                             Módulos
@@ -156,7 +219,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     </div>
                                     <div className="flex flex-col items-center">
                                         <p className="text-6xl font-bold text-primary-content">
-                                            01
+                                            {inverterModal}
                                         </p>
                                         <p className="text-base text-primary-content">
                                             Inversores
@@ -215,7 +278,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setName(event.target.value)
                                 }
                                 type="text"
-                                className="input input-ghost w-full"
+                                className="input input-ghost bg-gray-100 w-full"
                             />
                         </div>
 
@@ -230,7 +293,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setEmail(event.target.value)
                                 }
                                 type="email"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -240,9 +303,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     Selecione o estado
                                 </span>
                             </label>
+
                             <select
                                 defaultValue="1"
-                                className="select select-ghost"
+                                className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
                                 <option value={1} disabled>
@@ -269,30 +333,16 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
-                                className="select select-ghost"
-                                onChange={(e) =>
-                                    setCitySelected(e.target.value)
-                                }
+                                defaultValue="1"
+                                className="select select-ghost bg-gray-100"
                             >
-                                <option value={1} disabled>
-                                    ...
-                                </option>
-                                {
-                                    // !state ? (
-                                    //     <option value="2" disabled>
-                                    //         Selecione um estado antes
-                                    //     </option>
-                                    // ) : (
-                                    city?.state.map((res: any) => {
-                                        return (
-                                            <option key={res} value={res}>
-                                                {res}
-                                            </option>
-                                        );
-                                    })
-                                    // )
-                                }
+                                {city?.map((res: any) => {
+                                    return (
+                                        <option key={res.id} value={res.id}>
+                                            {res.name}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
@@ -308,7 +358,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setTariff(event.target.value)
                                 }
                                 type="tel"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
+                                value={tariff}
                             />
                         </div>
 
@@ -324,7 +375,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setInvoice(event.target.value)
                                 }
                                 type="tel"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -336,12 +387,14 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             </label>
                             <select
                                 defaultValue="1"
-                                className="select select-ghost"
+                                className="select select-ghost bg-gray-100"
                                 onChange={(e) => {
                                     setInverter(e.target.value);
                                 }}
                             >
-                                <option value="1">Afore</option>
+                                <option value="1" selected>
+                                    Afore
+                                </option>
                                 <option value="2">SMA</option>
                             </select>
                         </div>
@@ -359,7 +412,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         </div>
                     </form>
                     <div className="mt-10">
-                        <span className="w-full text-sm text-black">
+                        <span className="w-full text-xs text-black">
                             Observações: <br /> 1 - Geração de energia elétrica
                             para módulos de 2 m², 405 Wp e 144 células,
                             inclinados em 15°, sem desvio do norte e sem sombra;{" "}

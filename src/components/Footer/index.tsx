@@ -23,7 +23,7 @@ const Footer = () => {
                 <Image src={BF4Img} layout="responsive"></Image>
             </div>
 
-            <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:pl-10 md:items-end md:flex-row">
+            <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:items-end md:flex-row">
                 <div className="grid gap-4 text-center md:text-start text-primary">
                     <div>
                         <h1> Solis Solar © Todos os direitos reservados</h1>

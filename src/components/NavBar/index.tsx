@@ -7,6 +7,7 @@ import {
     faInstagram,
     faLinkedin,
     faYoutube,
+    faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import { ReactElement } from "react";
 
@@ -116,6 +117,16 @@ const Navbar = ({ children }: NavProps) => {
                             >
                                 <a className="contents" target={"_blank"}>
                                     <FontAwesomeIcon icon={faInstagram} />
+                                </a>
+                            </Link>
+                            <Link
+                                href={
+                                    "https://api.whatsapp.com/send?phone=5518996241104"
+                                }
+                                target={"_blank"}
+                            >
+                                <a className="contents" target={"_blank"}>
+                                    <FontAwesomeIcon icon={faWhatsapp} />
                                 </a>
                             </Link>
                         </div>
