@@ -24,7 +24,7 @@ const Footer = () => {
             </div>
 
             <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:pl-10 md:items-end md:flex-row">
-                <div className="grid gap-4 text-center md:text-start">
+                <div className="grid gap-4 text-center md:text-start text-primary">
                     <div>
                         <h1> Solis Solar © Todos os direitos reservados</h1>
                         <p>
@@ -37,7 +37,7 @@ const Footer = () => {
                             16200-381
                         </p>
                     </div>
-                    <div className="w-full h-full flex gap-4 text-white mt-2 justify-center md:justify-start">
+                    <div className="w-full h-full flex gap-4 text-primary mt-2 justify-center md:justify-start">
                         <Link
                             href={"https://www.facebook.com/solissolaroficial"}
                         >

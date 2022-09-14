@@ -19,7 +19,7 @@ const Navbar = ({ children }: NavProps) => {
         <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
-                <div className="navbar p-0 pt-2 flex-col h-20 md:h-28 fixed z-50 bg-primary">
+                <div className="navbar p-0 pt-2 flex-col h-20 md:h-28 fixed z-20 bg-primary">
                     <div className="max-w-7xl px-6 mx-auto w-full justify-between">
                         <div className="self-baseline w-44 md:w-60">
                             <Link href={"/"}>
@@ -33,19 +33,19 @@ const Navbar = ({ children }: NavProps) => {
                             </Link>
                         </div>
                         <div>
-                            <div className="hidden sm:flex gap-3">
+                            <div className="hidden md:flex gap-3">
                                 <Link href={"/"} passHref>
-                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
                                         Fotovoltaico
                                     </a>
                                 </Link>
                                 <Link href={"/banho"} passHref>
-                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
                                         Banho
                                     </a>
                                 </Link>
                                 <Link href={"/piscina"} passHref>
-                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                                    <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
                                         Piscina
                                     </a>
                                 </Link>
@@ -69,7 +69,7 @@ const Navbar = ({ children }: NavProps) => {
                             <input type="checkbox" />
 
                             <svg
-                                className="swap-off fill-current text-gray-500"
+                                className="swap-off fill-current text-secondary"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="32"
                                 height="32"
@@ -80,7 +80,7 @@ const Navbar = ({ children }: NavProps) => {
                         </label>
                     </div>
                     <div className="h-9 mt-2 w-full bg-secondary">
-                        <div className="max-w-7xl w-full h-full py-[10px] mx-auto flex px-6 sm:pr-10 sm:justify-end gap-4 text-white">
+                        <div className="max-w-7xl w-full h-full py-[10px] mx-auto flex px-6 md:pr-10 md:justify-end gap-4 text-primary">
                             <Link
                                 href={
                                     "https://www.facebook.com/solissolaroficial"
@@ -127,13 +127,13 @@ const Navbar = ({ children }: NavProps) => {
 
             <div className="drawer-side">
                 <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
-                <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+                <ul className="menu p-4 overflow-y-auto w-2/3 bg-base-100 text-secondary">
                     <label
                         htmlFor="my-drawer-4"
                         className="flex w-full justify-end"
                     >
                         <svg
-                            className="swap-off fill-current text-gray-500"
+                            className="swap-off fill-current text-secondary"
                             xmlns="http://www.w3.org/2000/svg"
                             width="32"
                             height="32"
@@ -144,18 +144,18 @@ const Navbar = ({ children }: NavProps) => {
                     </label>
 
                     <Link href={"/"} passHref>
-                        <a className="btn btn-ghost normal-case w-full text-sm font-semibold text-gray-500">
+                        <a className="btn btn-ghost normal-case w-full text-sm font-semibold text-secondary">
                             Fotovoltaico
                         </a>
                     </Link>
 
                     <Link href={"/banho"} passHref>
-                        <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                        <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
                             Banho
                         </a>
                     </Link>
                     <Link href={"/piscina"} passHref>
-                        <a className="btn btn-ghost normal-case text-sm font-semibold text-gray-500">
+                        <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
                             Piscina
                         </a>
                     </Link>
