@@ -41,10 +41,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             toast.error("Selecione um estado!");
             return;
         }
-        // if (!citySelected) {
-        //     toast.error("Selecione uma cidade!");
-        //     return;
-        // }
+        if (!citySelected) {
+            toast.error("Selecione uma cidade!");
+            return;
+        }
         if (!tariff) {
             toast.error("Insira a tarifa!");
             return;
@@ -61,7 +61,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             name &&
             email &&
             state &&
-            // citySelected &&
+            citySelected &&
             tariff &&
             invoice &&
             inverter
@@ -353,7 +353,13 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <select
                                 defaultValue="1"
                                 className="select select-ghost bg-gray-100"
+                                onChange={(event) =>
+                                    setCitySelected(event.target.value)
+                                }
                             >
+                                <option selected value="1">
+                                    ...
+                                </option>
                                 {city?.map((res: any) => {
                                     return (
                                         <option key={res.id} value={res.id}>

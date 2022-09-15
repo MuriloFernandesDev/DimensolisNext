@@ -1,21 +1,24 @@
-import { fauna } from "../services/db";
-import { query as q } from "faunadb";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/styles.module.scss";
 import toast from "react-hot-toast";
+import { api } from "../services/apiconfig";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
-    const [state, setState] = useState<string>();
+    const [state, setState] = useState<any>();
     const [city, setCity] = useState<any>();
     const [citySelected, setCitySelected] = useState<any>();
-    const [climate, setClimate] = useState<string>();
+    const [climate, setClimate] = useState<number | string>();
     const [person, setPerson] = useState<any>();
     const [numberBaths, setNumberBaths] = useState<any>();
     const [showModal, setShowModal] = useState(false);
+    const [inverterModal, setInverterModal] = useState();
+    const [moduleModal, setModuleModal] = useState();
+    const [descriptionModal, setDescriptionModal] = useState();
+    const [generationModal, setGenerationModal] = useState();
 
     const handleSubmit = async (event: any) => {
         if (!name) {
@@ -62,99 +65,12 @@ export default function Banho({ data }: any) {
     };
 
     useEffect(() => {
-        const GetCitys = async () => {
-            const { data }: any = await fauna.query(
-                q.Get(q.Ref(q.Collection("citys"), "342616789934408273"))
-            );
-            switch (state) {
-                case "Acre":
-                    setCity(data.data[0]);
-                    break;
-                case "Alagoas":
-                    setCity(data.data[1]);
-                    break;
-                case "Amapá":
-                    setCity(data.data[2]);
-                    break;
-                case "Amazonas":
-                    setCity(data.data[3]);
-                    break;
-                case "Bahia":
-                    setCity(data.data[4]);
-                    break;
-                case "Ceará":
-                    setCity(data.data[5]);
-                    break;
-                case "Distrito Federal":
-                    setCity(data.data[6]);
-                    break;
-                case "Espírito Santo":
-                    setCity(data.data[7]);
-                    break;
-                case "Goiás":
-                    setCity(data.data[8]);
-                    break;
-                case "Maranhão":
-                    setCity(data.data[9]);
-                    break;
-                case "Mato Grosso":
-                    setCity(data.data[10]);
-                    break;
-                case "Mato Grosso do Sul":
-                    setCity(data.data[11]);
-                    break;
-                case "Minas Gerais":
-                    setCity(data.data[12]);
-                    break;
-                case "Pará":
-                    setCity(data.data[13]);
-                    break;
-                case "Paraíba":
-                    setCity(data.data[14]);
-                    break;
-                case "Paraná":
-                    setCity(data.data[15]);
-                    break;
-                case "Pernanbuco":
-                    setCity(data.data[16]);
-                    break;
-                case "Piauí":
-                    setCity(data.data[17]);
-                    break;
-                case "Rio de Janeiro":
-                    setCity(data.data[18]);
-                    break;
-                case "Rio Grande do Norte":
-                    setCity(data.data[19]);
-                    break;
-                case "Rio Grande do Sul":
-                    setCity(data.data[20]);
-                    break;
-                case "Rondônia":
-                    setCity(data.data[21]);
-                    break;
-                case "Roraima":
-                    setCity(data.data[22]);
-                    break;
-                case "Santa Catarina":
-                    setCity(data.data[23]);
-                    break;
-                case "São Paulo":
-                    setCity(data.data[24]);
-                    break;
-                case "Sergipe":
-                    setCity(data.data[25]);
-                    break;
-                case "Tocantins":
-                    setCity(data.data[26]);
-                    break;
-                case "Distrito Federal":
-                    setCity(data.data[27]);
-                    break;
-            }
-        };
-
-        GetCitys();
+        data.map((res: any) => {
+            return res.id === parseInt(state) ? setCity(res.cities) : null;
+        });
+        if (city) {
+            setClimate(city[0].weather_id);
+        }
     }, [state]);
 
     return (
@@ -293,7 +209,7 @@ export default function Banho({ data }: any) {
                                             setName(event.target.value)
                                         }
                                         type="text"
-                                        className="input input-ghost w-full"
+                                        className="input input-ghost bg-gray-100"
                                     />
                                 </div>
 
@@ -308,7 +224,7 @@ export default function Banho({ data }: any) {
                                             setEmail(event.target.value)
                                         }
                                         type="email"
-                                        className="input input-ghost w-full"
+                                        className="input input-ghost bg-gray-100"
                                     />
                                 </div>
 
@@ -320,7 +236,7 @@ export default function Banho({ data }: any) {
                                     </label>
                                     <select
                                         defaultValue="1"
-                                        className="select select-ghost"
+                                        className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setState(e.target.value)
                                         }
@@ -329,13 +245,13 @@ export default function Banho({ data }: any) {
                                             ...
                                         </option>
 
-                                        {data?.data.map((response: any) => {
+                                        {data.map((response: any) => {
                                             return (
                                                 <option
-                                                    key={response.state}
-                                                    value={response.state}
+                                                    key={response.id}
+                                                    value={response.id}
                                                 >
-                                                    {response.state}
+                                                    {response.name}
                                                 </option>
                                             );
                                         })}
@@ -349,39 +265,48 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue={1}
-                                        className="select select-ghost"
-                                        onChange={(e) =>
-                                            setCitySelected(e.target.value)
-                                        }
+                                        defaultValue="1"
+                                        className="select select-ghost bg-gray-100"
                                     >
-                                        <option value="1" disabled>
-                                            ...
-                                        </option>
-                                        {city?.state.map((res: any) => {
+                                        {city?.map((res: any) => {
                                             return (
-                                                <option key={res} value={res}>
-                                                    {res}
+                                                <option
+                                                    key={res.id}
+                                                    value={res.id}
+                                                >
+                                                    {res.name}
                                                 </option>
                                             );
                                         })}
                                     </select>
                                 </div>
                             </div>
-                            <div className="grid-cols-2 grid gap-3 w-full">
+                            <div className="grid-cols-1 md:grid-cols-2 grid gap-3 w-full">
                                 <div className="form-control w-full">
                                     <label className="label">
                                         <span className="label-text text-primary-content text-xs">
                                             Tipo de clima
                                         </span>
                                     </label>
-                                    <input
-                                        onChange={(event) =>
-                                            setClimate(event.target.value)
+                                    <select
+                                        defaultValue="1"
+                                        className="select select-ghost bg-gray-100"
+                                        onChange={(e) =>
+                                            setValue(e.target.value)
                                         }
-                                        type="text"
-                                        className="input input-ghost w-full"
-                                    />
+                                    >
+                                        <option value="1">
+                                            {climate === 1
+                                                ? "Muito frio"
+                                                : climate === 2
+                                                ? "Frio"
+                                                : climate === 3
+                                                ? "Quente"
+                                                : climate === 4
+                                                ? "Muito quente"
+                                                : ""}
+                                        </option>
+                                    </select>
                                 </div>
 
                                 <div className="form-control w-full">
@@ -395,7 +320,7 @@ export default function Banho({ data }: any) {
                                             setPerson(event.target.value)
                                         }
                                         type="text"
-                                        className="input input-ghost w-full"
+                                        className="input input-ghost bg-gray-100"
                                     />
                                 </div>
 
@@ -410,7 +335,7 @@ export default function Banho({ data }: any) {
                                             setNumberBaths(event.target.value)
                                         }
                                         type="tel"
-                                        className="input input-ghost w-full"
+                                        className="input input-ghost bg-gray-100"
                                     />
                                 </div>
                             </div>
@@ -524,9 +449,7 @@ export default function Banho({ data }: any) {
 
 export async function getStaticProps() {
     try {
-        const { data }: any = await fauna.query(
-            q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
-        );
+        const { data }: any = await api.get("/states");
         return {
             props: {
                 data,
