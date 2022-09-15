@@ -2,14 +2,16 @@ import Image from "next/image";
 import InversoresImg from "../assets/images/inversores.svg";
 import CatalogoImg from "../assets/images/fotosolis.svg";
 import { api } from "../services/apiconfig";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
-import { formatarMoeda } from "../utils/masks";
+import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import Inversor1Img from "../assets/images/inversor1.svg";
+import Inversor2Img from "../assets/images/inversor2.svg";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -26,8 +28,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     const [descriptionModal, setDescriptionModal] = useState();
     const [generationModal, setGenerationModal] = useState();
 
-    const handleSubmit = async (event: any) => {
-        // setShowModal(!showModal);
+    const handleSubmit = async () => {
         if (!name) {
             toast.error("insira o campo nome!");
             return;
@@ -163,15 +164,29 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         htmlFor="my-modal-4"
                         className={
                             styles.modal +
-                            (showModal !== true ? " modal-toggle" : "")
+                            (showModal !== true ? " modal-toggle " : "")
                         }
                     >
                         <label
                             className="modal-box w-[450px] bg-white flex flex-col gap-4 relative"
                             htmlFor=""
                         >
-                            <div className="flex items-center w-full">
-                                <div className="flex w-full">
+                            {/* <div className="w-full flex gap-3 pb-28">
+                                <div className="w-20 h-8">
+                                    <Image
+                                        src={Inversor1Img}
+                                        layout="responsive"
+                                    ></Image>
+                                </div>
+                                <div className="w-14 h-8">
+                                    <Image
+                                        src={Inversor2Img}
+                                        layout="fixed"
+                                    ></Image>
+                                </div>
+                            </div> */}
+                            <div className="flex items-center flex-col text-center w-full md:text-start md:flex-row gap-3 md:gap-0">
+                                <div className="flex w-full justify-center md:justify-start">
                                     {" "}
                                     <h1 className="text-3xl font-extrabold text-primary-content">
                                         Gasto médio
@@ -202,10 +217,13 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <div className="flex">
                                 <div className="flex flex-col w-1/2">
                                     <h1 className="text-warning text-5xl font-bold">
-                                        7,695
+                                        {apenasNumeros(descriptionModal)}
                                     </h1>
                                     <p className="text-sm text-primary-content">
-                                        {descriptionModal}
+                                        <span className="text-warning font-semibold">
+                                            kWp -{" "}
+                                        </span>{" "}
+                                        {apenasString(descriptionModal)}
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-2 w-1/2">

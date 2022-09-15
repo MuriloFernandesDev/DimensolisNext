@@ -43,3 +43,19 @@ export const formatarMoeda = (e: any) => {
 
     e.target.value = v;
 };
+
+export function apenasNumeros(string: any) {
+    var numsStr = string.replace(/[^0-9]/g, "");
+    var addnumber = numsStr + "00";
+    var addponto = addnumber.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return addponto;
+}
+
+export function apenasString(string: any) {
+    const result = string
+        .replace(/[0-9]/g, "")
+        .replace(",", "")
+        .replace("kWp", "");
+
+    return result;
+}

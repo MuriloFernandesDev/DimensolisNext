@@ -1,8 +1,7 @@
-import { fauna } from "../services/db";
-import { query as q } from "faunadb";
 import { formatarMoeda } from "../utils/masks";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { api } from "../services/apiconfig";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -247,9 +246,7 @@ export default function Piscina({ data }: any): JSX.Element {
 
 export async function getStaticProps() {
     try {
-        const { data }: any = await fauna.query(
-            q.Get(q.Ref(q.Collection("states"), "342447823857386065"))
-        );
+        const { data }: any = await api.get("/states");
         return {
             props: {
                 data,
