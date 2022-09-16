@@ -79,7 +79,6 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
             try {
                 const response = await api.post(`photovoltaic`, data);
-                console.log(response);
 
                 if (response.data.error) {
                     if (
@@ -323,11 +322,11 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             </label>
 
                             <select
-                                defaultValue="1"
+                                defaultValue="00"
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value="1" selected>
+                                <option value="00" selected>
                                     ...
                                 </option>
 
@@ -433,9 +432,16 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             >
                                 Calcular
                             </button>
-                            <button className="btn btn-warning text-xs">
-                                Solicitar Orçamento
-                            </button>
+                            <Link
+                                href={
+                                    "https://api.whatsapp.com/send?phone=5518996241104"
+                                }
+                                passHref
+                            >
+                                <button className="btn btn-warning text-xs">
+                                    Solicitar Orçamento
+                                </button>
+                            </Link>
                         </div>
                     </form>
                     <div className="mt-10">
