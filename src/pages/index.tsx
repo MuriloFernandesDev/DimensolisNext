@@ -310,24 +310,22 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             </label>
 
                             <select
-                                defaultValue="0012"
+                                defaultValue={"DEFAULT"}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value="0012" selected>
+                                <option value="DEFAULT" disabled>
                                     ...
                                 </option>
 
-                                {data.map((response: any) => {
-                                    return (
-                                        <option
-                                            key={response.id}
-                                            value={response.id}
-                                        >
-                                            {response.name}
-                                        </option>
-                                    );
-                                })}
+                                {data?.map((response: any) => (
+                                    <option
+                                        key={response.id + response.name}
+                                        value={response.id}
+                                    >
+                                        {response.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -338,22 +336,24 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="0012"
+                                defaultValue={"DEFAULT"}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(event) =>
                                     setCitySelected(event.target.value)
                                 }
                             >
-                                <option selected value="0012">
+                                <option value="DEFAULT" disabled>
                                     ...
                                 </option>
-                                {city?.map((res: any) => {
-                                    return (
-                                        <option key={res.id} value={res.id}>
-                                            {res.name}
-                                        </option>
-                                    );
-                                })}
+
+                                {city?.map((res: any) => (
+                                    <option
+                                        key={res.id + res.name}
+                                        value={res.id}
+                                    >
+                                        {res.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -396,18 +396,16 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={0}
+                                defaultValue={"DEFAULT"}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => {
                                     setInverter(e.target.value);
                                 }}
                             >
-                                <option value={0} selected>
+                                <option value="DEFAULT" disabled>
                                     ...
                                 </option>
-                                <option value={1} selected>
-                                    Afore
-                                </option>
+                                <option value={1}>Afore</option>
                                 <option value={2}>SMA</option>
                             </select>
                         </div>

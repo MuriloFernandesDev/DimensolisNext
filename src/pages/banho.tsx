@@ -99,12 +99,10 @@ export default function Banho({ data }: any) {
                                         </p>
                                         <Link
                                             href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
-                                            target={"_blank"}
+                                            passHref
                                         >
-                                            <a
-                                                className="contents"
-                                                target={"_blank"}
-                                            >
+                                            <a>
+                                                {" "}
                                                 <FontAwesomeIcon
                                                     className="w-10 h-10 text-warning"
                                                     icon={faWhatsapp}
@@ -302,26 +300,26 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue={"00001"}
+                                        defaultValue={"DEFAULT"}
                                         className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setState(e.target.value)
                                         }
                                     >
-                                        <option value={"00001"} selected>
+                                        <option value="DEFAULT" disabled>
                                             ...
                                         </option>
 
-                                        {data.map((response: any) => {
-                                            return (
-                                                <option
-                                                    key={response.id}
-                                                    value={response.id}
-                                                >
-                                                    {response.name}
-                                                </option>
-                                            );
-                                        })}
+                                        {data.map((response: any) => (
+                                            <option
+                                                key={
+                                                    response.id + response.name
+                                                }
+                                                value={response.id}
+                                            >
+                                                {response.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
 
@@ -332,25 +330,23 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue="00001"
+                                        defaultValue={"DEFAULT"}
                                         className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setCitySelected(e.target.value)
                                         }
                                     >
-                                        <option value={"00001"} selected>
+                                        <option value="DEFAULT" disabled>
                                             ...
                                         </option>
-                                        {city?.map((res: any) => {
-                                            return (
-                                                <option
-                                                    key={res.id}
-                                                    value={res.id}
-                                                >
-                                                    {res.name}
-                                                </option>
-                                            );
-                                        })}
+                                        {city?.map((res: any) => (
+                                            <option
+                                                key={res.id + res.name}
+                                                value={res.id}
+                                            >
+                                                {res.name}
+                                            </option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
@@ -362,13 +358,13 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue={0}
+                                        defaultValue={"DEFAULT"}
                                         className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setClimate(e.target.value)
                                         }
                                     >
-                                        <option value={0} selected>
+                                        <option value="DEFAULT" disabled>
                                             ...
                                         </option>
                                         <option value={1}>Muito frio</option>
@@ -385,13 +381,13 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue={0}
+                                        defaultValue={"DEFAULT"}
                                         className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setPerson(e.target.value)
                                         }
                                     >
-                                        <option value={0} selected>
+                                        <option value="DEFAULT" disabled>
                                             ...
                                         </option>
                                         <option value={1}>1</option>

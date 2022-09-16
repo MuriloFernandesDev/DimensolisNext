@@ -115,24 +115,22 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="1"
+                                defaultValue={"DEFAULT"}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value={1} disabled>
+                                <option value="DEFAULT" disabled>
                                     ...
                                 </option>
 
-                                {data.map((response: any) => {
-                                    return (
-                                        <option
-                                            key={response.id}
-                                            value={response.id}
-                                        >
-                                            {response.name}
-                                        </option>
-                                    );
-                                })}
+                                {data?.map((response: any) => (
+                                    <option
+                                        key={response.id + response.name}
+                                        value={response.id}
+                                    >
+                                        {response.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -143,22 +141,23 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="1"
+                                defaultValue={"DEFAULT"}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(event) =>
                                     setCitySelected(event.target.value)
                                 }
                             >
-                                <option selected value="1">
+                                <option value="DEFAULT" disabled>
                                     ...
                                 </option>
-                                {city?.map((res: any) => {
-                                    return (
-                                        <option key={res.id} value={res.id}>
-                                            {res.name}
-                                        </option>
-                                    );
-                                })}
+                                {city?.map((res: any) => (
+                                    <option
+                                        key={res.id + res.name}
+                                        value={res.id}
+                                    >
+                                        {res.name}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
@@ -212,18 +211,19 @@ export default function Piscina({ data }: any): JSX.Element {
                                 className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
+                        <div></div>
+                        <div className="form-control gap-2 grid grid-cols-2  items-end w-full">
+                            <button
+                                onClick={handleSubmit}
+                                className="btn btn-warning text-xs"
+                            >
+                                Calcular
+                            </button>
+                            <button className="btn btn-warning text-xs">
+                                Solicitar Orçamento
+                            </button>
+                        </div>
                     </form>
-                    <div className="form-control gap-2 grid grid-cols-2 items-end w-full">
-                        <button
-                            onClick={handleSubmit}
-                            className="btn btn-warning text-xs"
-                        >
-                            Calcular
-                        </button>
-                        <button className="btn btn-warning text-xs">
-                            Solicitar Orçamento
-                        </button>
-                    </div>
 
                     <div className="mt-10">
                         <span className="w-full text-sm text-black">
