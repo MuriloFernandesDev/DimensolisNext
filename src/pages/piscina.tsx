@@ -89,7 +89,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                     setName(event.target.value)
                                 }
                                 type="text"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -104,7 +104,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                     setEmail(event.target.value)
                                 }
                                 type="email"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -173,7 +173,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                     setTariff(event.target.value)
                                 }
                                 type="tel"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -185,7 +185,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -197,7 +197,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
 
@@ -209,7 +209,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             </label>
                             <input
                                 type="text"
-                                className="input input-ghost w-full"
+                                className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
                     </form>
