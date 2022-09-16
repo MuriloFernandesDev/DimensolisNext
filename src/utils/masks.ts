@@ -51,6 +51,11 @@ export function apenasNumeros(string: any) {
     return addponto;
 }
 
+export function soNumerosInput(evt: any) {
+    var v = evt?.target.value.replace(/\D/g, "");
+    evt.target.value = v;
+}
+
 export function apenasString(string: any) {
     const result = string
         .replace(/[0-9]/g, "")

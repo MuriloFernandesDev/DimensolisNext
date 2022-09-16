@@ -4,6 +4,9 @@ import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import styles from "../styles/styles.module.scss";
 import toast from "react-hot-toast";
 import { api } from "../services/apiconfig";
+import { soNumerosInput } from "../utils/masks";
+import Image from "next/image";
+import WaterImg from "../assets/images/water.png";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
@@ -14,15 +17,19 @@ export default function Banho({ data }: any) {
     const [climate, setClimate] = useState<number | string>();
     const [person, setPerson] = useState<any>();
     const [numberBaths, setNumberBaths] = useState<any>();
-    const [showModal, setShowModal] = useState(false);
-    const [inverterModal, setInverterModal] = useState();
-    const [moduleModal, setModuleModal] = useState();
-    const [descriptionModal, setDescriptionModal] = useState();
-    const [generationModal, setGenerationModal] = useState();
+    const [consumer, setConsumer] = useState<string>();
+    const [showModal, setShowModal] = useState(true);
+    const [volumeModal, setVolumeModal] = useState();
+    const [areaModal, setAreaModal] = useState();
+    const [producModal, setProductModal] = useState([]);
 
     const handleSubmit = async (event: any) => {
         if (!name) {
             toast.error("insira o campo nome!");
+            return;
+        }
+        if (!consumer) {
+            toast.error("Selecione o local de maior consumo de água!");
             return;
         }
         if (!email) {
@@ -56,21 +63,48 @@ export default function Banho({ data }: any) {
             citySelected &&
             climate &&
             person &&
-            numberBaths
+            numberBaths &&
+            consumer
         ) {
-            setShowModal(!showModal);
-        }
+            console.log(
+                name,
+                email,
+                state,
+                citySelected,
+                climate,
+                person,
+                numberBaths,
+                consumer
+            );
+            const data = {
+                weather: parseInt(numberBaths),
+                city: parseInt(citySelected),
+                people: parseInt(person),
+                bath: parseInt(numberBaths),
+                usage: [consumer.toLowerCase()],
+            };
 
-        //exibir modal se ocorrer tudo bem
+            try {
+                const response = await api.post(`bath`, data);
+                console.log(response);
+
+                setVolumeModal(response.data.volume);
+                setAreaModal(response.data.area);
+                setProductModal(response.data.product);
+                setShowModal(!showModal);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     };
 
     useEffect(() => {
         data.map((res: any) => {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
-        if (city) {
-            setClimate(city[0].weather_id);
-        }
+        // if (city) {
+        //     setClimate(city[0].weather_id);
+        // }
     }, [state]);
 
     return (
@@ -95,29 +129,31 @@ export default function Banho({ data }: any) {
                             htmlFor=""
                         >
                             <div className="flex items-center w-full">
-                                <div className="flex w-full">
-                                    {" "}
-                                    <h1 className="text-3xl font-extrabold text-primary-content">
-                                        Gasto médio
-                                        <br />
-                                        <span className="font-medium">
-                                            de energia elétrica
+                                <div className="w-full flex">
+                                    <div className="flex flex-col justify-center w-1/2">
+                                        <span className="text-4xl font-extrabold text-primary-content">
+                                            Demanda{" "}
                                         </span>
-                                    </h1>
-                                </div>
-                                <div className="flex">
-                                    <FontAwesomeIcon
-                                        icon={faBolt}
-                                        className="h-16 text-warning"
-                                    ></FontAwesomeIcon>
-                                    <div className="flex flex-col items-center">
-                                        {" "}
-                                        <p className="text-6xl font-bold text-primary-content">
-                                            785
-                                        </p>
-                                        <p className="text-primary-content text-base">
-                                            kWh/mês
-                                        </p>
+                                        <span className="text-xl text-primary-content font-light">
+                                            Litros de água
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-center justify-between w-1/2">
+                                        <Image
+                                            src={WaterImg}
+                                            width={40}
+                                            height={40}
+                                            layout="fixed"
+                                        ></Image>
+                                        <div className="flex flex-col  items-center">
+                                            <span className="text-6xl text-primary-content font-bold">
+                                                {volumeModal}
+                                            </span>
+                                            <span className="text-xl font-semibold text-primary-content">
+                                                Litros
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -235,13 +271,13 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue="1"
+                                        defaultValue={"00001"}
                                         className="select select-ghost bg-gray-100"
                                         onChange={(e) =>
                                             setState(e.target.value)
                                         }
                                     >
-                                        <option value={1} disabled>
+                                        <option value={"00001"} selected>
                                             ...
                                         </option>
 
@@ -265,9 +301,15 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue="1"
+                                        defaultValue="00001"
                                         className="select select-ghost bg-gray-100"
+                                        onChange={(e) =>
+                                            setCitySelected(e.target.value)
+                                        }
                                     >
+                                        <option value={"00001"} selected>
+                                            ...
+                                        </option>
                                         {city?.map((res: any) => {
                                             return (
                                                 <option
@@ -289,23 +331,19 @@ export default function Banho({ data }: any) {
                                         </span>
                                     </label>
                                     <select
-                                        defaultValue="1"
+                                        defaultValue={0}
                                         className="select select-ghost bg-gray-100"
-                                        // onChange={(e) =>
-                                        //     setValue(e.target.value)
-                                        // }
+                                        onChange={(e) =>
+                                            setClimate(e.target.value)
+                                        }
                                     >
-                                        <option value="1">
-                                            {climate === 1
-                                                ? "Muito frio"
-                                                : climate === 2
-                                                ? "Frio"
-                                                : climate === 3
-                                                ? "Quente"
-                                                : climate === 4
-                                                ? "Muito quente"
-                                                : ""}
+                                        <option value={0} selected>
+                                            ...
                                         </option>
+                                        <option value={1}>Muito frio</option>
+                                        <option value={2}>Frio</option>
+                                        <option value={3}>Quente</option>
+                                        <option value={4}>Muito quente</option>
                                     </select>
                                 </div>
 
@@ -315,13 +353,27 @@ export default function Banho({ data }: any) {
                                             Número de pessoas
                                         </span>
                                     </label>
-                                    <input
-                                        onChange={(event) =>
-                                            setPerson(event.target.value)
+                                    <select
+                                        defaultValue={0}
+                                        className="select select-ghost bg-gray-100"
+                                        onChange={(e) =>
+                                            setPerson(e.target.value)
                                         }
-                                        type="text"
-                                        className="input input-ghost bg-gray-100"
-                                    />
+                                    >
+                                        <option value={0} selected>
+                                            ...
+                                        </option>
+                                        <option value={1}>1</option>
+                                        <option value={2}>2</option>
+                                        <option value={3}>3</option>
+                                        <option value={4}>4</option>
+                                        <option value={5}>5</option>
+                                        <option value={6}>6</option>
+                                        <option value={7}>7</option>
+                                        <option value={8}>8</option>
+                                        <option value={9}>9</option>
+                                        <option value={10}>10</option>
+                                    </select>
                                 </div>
 
                                 <div className="form-control w-full">
@@ -334,6 +386,8 @@ export default function Banho({ data }: any) {
                                         onChange={(event) =>
                                             setNumberBaths(event.target.value)
                                         }
+                                        onKeyUp={(e) => soNumerosInput(e)}
+                                        maxLength={2}
                                         type="tel"
                                         className="input input-ghost bg-gray-100"
                                     />
@@ -348,19 +402,29 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    name="radio-6"
+                                                    className="radio radio-accent"
+                                                    onClick={() =>
+                                                        setConsumer("Ducha")
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Ducha
                                                 </span>
                                             </label>
                                         </div>
-                                        <div className="form-control ">
+                                        <div className="form-control">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    name="radio-6"
+                                                    className="radio radio-accent"
+                                                    onClick={() =>
+                                                        setConsumer(
+                                                            "Ducha higiênica"
+                                                        )
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Ducha higiênica
@@ -370,8 +434,12 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start  gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    className="radio radio-accent"
+                                                    name="radio-6"
+                                                    onClick={() =>
+                                                        setConsumer("Cozinha")
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Cozinha
@@ -382,8 +450,12 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    className="radio radio-accent"
+                                                    name="radio-6"
+                                                    onClick={() =>
+                                                        setConsumer("Lavatório")
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Lavatório
@@ -393,8 +465,12 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    className="radio radio-accent"
+                                                    name="radio-6"
+                                                    onClick={() =>
+                                                        setConsumer("Banheira")
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Banheira
@@ -404,8 +480,14 @@ export default function Banho({ data }: any) {
                                         <div className="form-control">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="checkbox"
-                                                    className="checkbox checkbox-accent"
+                                                    type="radio"
+                                                    className="radio radio-accent"
+                                                    name="radio-6"
+                                                    onClick={() =>
+                                                        setConsumer(
+                                                            "Lavanderia"
+                                                        )
+                                                    }
                                                 />
                                                 <span className="label-text text-xl ">
                                                     Lavanderia

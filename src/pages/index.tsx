@@ -21,7 +21,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     const [citySelected, setCitySelected] = useState<any>();
     const [tariff, setTariff] = useState<any>(0.7);
     const [invoice, setInvoice] = useState<any>();
-    const [inverter, setInverter] = useState<string | number>();
+    const [inverter, setInverter] = useState<any>();
     const [showModal, setShowModal] = useState(false);
     const [inverterModal, setInverterModal] = useState();
     const [moduleModal, setModuleModal] = useState();
@@ -67,16 +67,20 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
             inverter
         ) {
             const data = {
-                inversor: inverter,
-                city: citySelected,
-                invoice: invoice
-                    .replace("R$", "")
-                    .replace(/,/g, "")
-                    .replace(/ /g, "")
-                    .replace("00", ""),
-                tax: tariff, //formatar o dado tariff
+                inversor: parseInt(inverter),
+                city: parseInt(citySelected),
+                invoice: parseInt(
+                    invoice
+                        .replace("R$", "")
+                        .replace(/,/g, "")
+                        .replace(/ /g, "")
+                        .replace("00", "")
+                ),
+                tax: tariff,
+                // .replace(",", "")
+                // .replace("00", "")
+                // .replace(/\B(?=(\d{2})+(?!\d))/g, "."), //formatar o dado tariff
             };
-            console.log(data);
 
             try {
                 const response = await api.post(`photovoltaic`, data);
@@ -323,11 +327,11 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             </label>
 
                             <select
-                                defaultValue="00"
+                                defaultValue="0012"
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value="00" selected>
+                                <option value="0012" selected>
                                     ...
                                 </option>
 
@@ -351,13 +355,13 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="1"
+                                defaultValue="0012"
                                 className="select select-ghost bg-gray-100"
                                 onChange={(event) =>
                                     setCitySelected(event.target.value)
                                 }
                             >
-                                <option selected value="1">
+                                <option selected value="0012">
                                     ...
                                 </option>
                                 {city?.map((res: any) => {
@@ -409,19 +413,19 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="0"
+                                defaultValue={0}
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => {
                                     setInverter(e.target.value);
                                 }}
                             >
-                                <option value="0" selected>
+                                <option value={0} selected>
                                     ...
                                 </option>
-                                <option value="1" selected>
+                                <option value={1} selected>
                                     Afore
                                 </option>
-                                <option value="2">SMA</option>
+                                <option value={2}>SMA</option>
                             </select>
                         </div>
 
