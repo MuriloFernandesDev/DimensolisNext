@@ -68,7 +68,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
         ) {
             const data = {
                 inversor: inverter,
-                city: 2,
+                city: citySelected,
                 invoice: invoice
                     .replace("R$", "")
                     .replace(/,/g, "")
@@ -327,7 +327,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value={1} disabled>
+                                <option value="1" selected>
                                     ...
                                 </option>
 
@@ -410,12 +410,15 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue="1"
+                                defaultValue="0"
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => {
                                     setInverter(e.target.value);
                                 }}
                             >
+                                <option value="0" selected>
+                                    ...
+                                </option>
                                 <option value="1" selected>
                                     Afore
                                 </option>

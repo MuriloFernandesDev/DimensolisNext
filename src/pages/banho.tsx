@@ -291,9 +291,9 @@ export default function Banho({ data }: any) {
                                     <select
                                         defaultValue="1"
                                         className="select select-ghost bg-gray-100"
-                                        onChange={(e) =>
-                                            setValue(e.target.value)
-                                        }
+                                        // onChange={(e) =>
+                                        //     setValue(e.target.value)
+                                        // }
                                     >
                                         <option value="1">
                                             {climate === 1
