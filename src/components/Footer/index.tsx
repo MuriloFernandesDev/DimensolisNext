@@ -12,6 +12,17 @@ import {
     faLinkedin,
     faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+
+export const NameStart = ({ title }: any) => {
+    return (
+        <div className="flex justify-between items-center w-full">
+            <FontAwesomeIcon icon={faStar} className="w-10 h-10 text-warning" />
+            <span className="text-2xl font-normal text-slate-700">{title}</span>
+            {title}
+        </div>
+    );
+};
 
 const Footer = () => {
     return (

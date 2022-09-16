@@ -7,6 +7,9 @@ import { api } from "../services/apiconfig";
 import { soNumerosInput } from "../utils/masks";
 import Image from "next/image";
 import WaterImg from "../assets/images/water.png";
+import GeneratorImg from "../assets/images/generator.png";
+import Link from "next/link";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
@@ -17,8 +20,8 @@ export default function Banho({ data }: any) {
     const [climate, setClimate] = useState<number | string>();
     const [person, setPerson] = useState<any>();
     const [numberBaths, setNumberBaths] = useState<any>();
-    const [consumer, setConsumer] = useState<string>();
-    const [showModal, setShowModal] = useState(true);
+    const [consumer, setConsumer] = useState<any>([]);
+    const [showModal, setShowModal] = useState(false);
     const [volumeModal, setVolumeModal] = useState();
     const [areaModal, setAreaModal] = useState();
     const [producModal, setProductModal] = useState([]);
@@ -66,34 +69,72 @@ export default function Banho({ data }: any) {
             numberBaths &&
             consumer
         ) {
-            console.log(
-                name,
-                email,
-                state,
-                citySelected,
-                climate,
-                person,
-                numberBaths,
-                consumer
-            );
+            var newConsumer = consumer.filter(function (este: any, i: any) {
+                return consumer.indexOf(este) === i;
+            }); //remove os consumers repetidos
+
             const data = {
                 weather: parseInt(numberBaths),
                 city: parseInt(citySelected),
                 people: parseInt(person),
                 bath: parseInt(numberBaths),
-                usage: [consumer.toLowerCase()],
+                usage: newConsumer,
             };
 
             try {
                 const response = await api.post(`bath`, data);
-                console.log(response);
 
-                setVolumeModal(response.data.volume);
-                setAreaModal(response.data.area);
-                setProductModal(response.data.product);
-                setShowModal(!showModal);
+                if (response.data.error) {
+                    toast.custom((t) => (
+                        <div
+                            className={`${
+                                t.visible ? "animate-enter" : "animate-leave"
+                            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                        >
+                            <div className="flex-1 w-0 p-4">
+                                <div className="flex items-start">
+                                    <div className="ml-3 flex flex-row-reverse items-center justify-center gap-3">
+                                        <p className="text-sm font-medium text-info-content">
+                                            {response.data.error}
+                                        </p>
+                                        <Link
+                                            href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
+                                            target={"_blank"}
+                                        >
+                                            <a
+                                                className="contents"
+                                                target={"_blank"}
+                                            >
+                                                <FontAwesomeIcon
+                                                    className="w-10 h-10 text-warning"
+                                                    icon={faWhatsapp}
+                                                />
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex border-l border-gray-200">
+                                <button
+                                    onClick={() => toast.dismiss(t.id)}
+                                    className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-info-content"
+                                >
+                                    Fechar
+                                </button>
+                            </div>
+                        </div>
+                    ));
+                    return;
+                } else {
+                    console.log(response);
+
+                    setVolumeModal(response.data.volume);
+                    setAreaModal(response.data.area);
+                    setProductModal(response.data.product);
+                    setShowModal(!showModal);
+                }
             } catch (error) {
-                console.log(error);
+                toast.error("erro no sevidor");
             }
         }
     };
@@ -102,9 +143,6 @@ export default function Banho({ data }: any) {
         data.map((res: any) => {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
-        // if (city) {
-        //     setClimate(city[0].weather_id);
-        // }
     }, [state]);
 
     return (
@@ -125,69 +163,62 @@ export default function Banho({ data }: any) {
                         }
                     >
                         <label
-                            className="modal-box w-[450px] bg-white flex flex-col gap-4 relative"
+                            className="modal-box w-[450px] bg-white flex flex-col gap-4 p-10 relative"
                             htmlFor=""
                         >
-                            <div className="flex items-center w-full">
-                                <div className="w-full flex">
-                                    <div className="flex flex-col justify-center w-1/2">
-                                        <span className="text-4xl font-extrabold text-primary-content">
-                                            Demanda{" "}
-                                        </span>
-                                        <span className="text-xl text-primary-content font-light">
-                                            Litros de água
-                                        </span>
-                                    </div>
+                            <div className="flex justify-center">
+                                <Image
+                                    src={GeneratorImg}
+                                    width={250}
+                                    height={150}
+                                    layout="fixed"
+                                ></Image>
+                            </div>
+                            <div className="w-full flex">
+                                <div className="flex flex-col justify-center w-1/2">
+                                    <span className="text-4xl font-extrabold text-primary-content">
+                                        Demanda{" "}
+                                    </span>
+                                    <span className="text-xl text-primary-content font-light">
+                                        litros de água
+                                    </span>
+                                </div>
 
-                                    <div className="flex items-center justify-between w-1/2">
-                                        <Image
-                                            src={WaterImg}
-                                            width={40}
-                                            height={40}
-                                            layout="fixed"
-                                        ></Image>
-                                        <div className="flex flex-col  items-center">
-                                            <span className="text-6xl text-primary-content font-bold">
-                                                {volumeModal}
-                                            </span>
-                                            <span className="text-xl font-semibold text-primary-content">
-                                                Litros
-                                            </span>
-                                        </div>
+                                <div className="flex items-center justify-between w-1/2">
+                                    <Image
+                                        src={WaterImg}
+                                        width={40}
+                                        height={40}
+                                        layout="fixed"
+                                    ></Image>
+                                    <div className="flex flex-col items-end">
+                                        <span className="text-6xl text-primary-content font-bold">
+                                            {volumeModal}
+                                        </span>
+                                        <span className="text-xl font-semibold text-primary-content">
+                                            Litros
+                                        </span>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex">
-                                <div className="flex flex-col w-1/2">
-                                    <h1 className="text-warning text-5xl font-bold">
-                                        7,695
-                                    </h1>
-                                    <p className="text-sm text-primary-content">
-                                        <span className="text-warning font-semibold">
-                                            kWp
-                                        </span>{" "}
-                                        - Sistemas
-                                        <br /> fotovoltaicos Solis
-                                    </p>
+                            <div className="w-full flex">
+                                <div className="flex flex-col items-start justify-center w-1/2">
+                                    <span className="text-4xl font-extrabold text-[#00c1ff]">
+                                        500 litros
+                                    </span>
+                                    <span className="text-base  text-primary-content font-light">
+                                        Reservátorio Termico Solis
+                                    </span>
                                 </div>
-                                <div className="grid grid-cols-2 w-1/2">
-                                    <div className="flex flex-col items-center">
-                                        <p className="text-6xl font-bold text-primary-content">
-                                            19
-                                        </p>
-                                        <p className="text-base text-primary-content">
-                                            Módulos
-                                        </p>
-                                    </div>
-                                    <div className="flex flex-col items-center">
-                                        <p className="text-6xl font-bold text-primary-content">
-                                            01
-                                        </p>
-                                        <p className="text-base text-primary-content">
-                                            Inversores
-                                        </p>
-                                    </div>
+
+                                <div className="flex flex-col items-end justify-between w-1/2">
+                                    <span className="text-4xl font-extrabold text-primary-content text-end">
+                                        {areaModal}
+                                    </span>
+                                    <span className="text-base text-primary-content font-light text-end">
+                                        Coletor Solar Trópicos V150 (1,5m²)
+                                    </span>
                                 </div>
                             </div>
 
@@ -402,11 +433,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    name="radio-6"
-                                                    className="radio radio-accent"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer("Ducha")
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "ducha",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">
@@ -417,13 +450,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    name="radio-6"
-                                                    className="radio radio-accent"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer(
-                                                            "Ducha higiênica"
-                                                        )
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "ducha higiênica",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">
@@ -434,11 +467,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start  gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    className="radio radio-accent"
-                                                    name="radio-6"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer("Cozinha")
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "cozinha",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">
@@ -450,11 +485,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    className="radio radio-accent"
-                                                    name="radio-6"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer("Lavatório")
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "lavatório",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">
@@ -465,11 +502,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    className="radio radio-accent"
-                                                    name="radio-6"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer("Banheira")
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "banheira",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">
@@ -480,13 +519,13 @@ export default function Banho({ data }: any) {
                                         <div className="form-control">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
-                                                    type="radio"
-                                                    className="radio radio-accent"
-                                                    name="radio-6"
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-accent"
                                                     onClick={() =>
-                                                        setConsumer(
-                                                            "Lavanderia"
-                                                        )
+                                                        setConsumer([
+                                                            ...consumer,
+                                                            "lavanderia",
+                                                        ])
                                                     }
                                                 />
                                                 <span className="label-text text-xl ">

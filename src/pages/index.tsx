@@ -10,8 +10,7 @@ import toast from "react-hot-toast";
 import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
-import Inversor1Img from "../assets/images/inversor1.svg";
-import Inversor2Img from "../assets/images/inversor2.svg";
+import GeneratorImg from "../assets/images/generatorIndex.png";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -86,55 +85,45 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                 const response = await api.post(`photovoltaic`, data);
 
                 if (response.data.error) {
-                    if (
-                        response.data.error ==
-                        "Para Kits acima de 40 módulos fotovoltaicos, consultar a Solis"
-                    ) {
-                        toast.custom((t) => (
-                            <div
-                                className={`${
-                                    t.visible
-                                        ? "animate-enter"
-                                        : "animate-leave"
-                                } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
-                            >
-                                <div className="flex-1 w-0 p-4">
-                                    <div className="flex items-start">
-                                        <div className="ml-3 flex flex-row-reverse items-center justify-center gap-3">
-                                            <p className="text-sm font-medium text-info-content">
-                                                {response.data.error}
-                                            </p>
-                                            <Link
-                                                href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
+                    toast.custom((t) => (
+                        <div
+                            className={`${
+                                t.visible ? "animate-enter" : "animate-leave"
+                            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                        >
+                            <div className="flex-1 w-0 p-4">
+                                <div className="flex items-start">
+                                    <div className="ml-3 flex flex-row-reverse items-center justify-center gap-3">
+                                        <p className="text-sm font-medium text-info-content">
+                                            {response.data.error}
+                                        </p>
+                                        <Link
+                                            href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
+                                            target={"_blank"}
+                                        >
+                                            <a
+                                                className="contents"
                                                 target={"_blank"}
                                             >
-                                                <a
-                                                    className="contents"
-                                                    target={"_blank"}
-                                                >
-                                                    <FontAwesomeIcon
-                                                        className="w-10 h-10 text-warning"
-                                                        icon={faWhatsapp}
-                                                    />
-                                                </a>
-                                            </Link>
-                                        </div>
+                                                <FontAwesomeIcon
+                                                    className="w-10 h-10 text-warning"
+                                                    icon={faWhatsapp}
+                                                />
+                                            </a>
+                                        </Link>
                                     </div>
                                 </div>
-                                <div className="flex border-l border-gray-200">
-                                    <button
-                                        onClick={() => toast.dismiss(t.id)}
-                                        className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-info-content"
-                                    >
-                                        Fechar
-                                    </button>
-                                </div>
                             </div>
-                        ));
-
-                        return;
-                    }
-                    toast.error(response.data.error);
+                            <div className="flex border-l border-gray-200">
+                                <button
+                                    onClick={() => toast.dismiss(t.id)}
+                                    className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-info-content"
+                                >
+                                    Fechar
+                                </button>
+                            </div>
+                        </div>
+                    ));
                     return;
                 }
                 setDescriptionModal(response.data.description);
@@ -143,7 +132,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                 setInverterModal(response.data.inversors);
                 setShowModal(!showModal);
             } catch (error) {
-                console.log(error);
+                toast.error("erro no servidor");
             }
         }
     };
@@ -172,43 +161,37 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         }
                     >
                         <label
-                            className="modal-box w-[450px] bg-white flex flex-col gap-4 relative"
+                            className="modal-box w-[450px] bg-white flex flex-col p-10 gap-4 relative"
                             htmlFor=""
                         >
-                            {/* <div className="w-full flex gap-3 pb-28">
-                                <div className="w-20 h-8">
-                                    <Image
-                                        src={Inversor1Img}
-                                        layout="responsive"
-                                    ></Image>
-                                </div>
-                                <div className="w-14 h-8">
-                                    <Image
-                                        src={Inversor2Img}
-                                        layout="fixed"
-                                    ></Image>
-                                </div>
-                            </div> */}
+                            <div className="flex justify-center">
+                                <Image
+                                    src={GeneratorImg}
+                                    width={250}
+                                    height={120}
+                                    layout="fixed"
+                                ></Image>
+                            </div>
                             <div className="flex items-center flex-col text-center w-full md:text-start md:flex-row gap-3 md:gap-0">
                                 <div className="flex w-full justify-center md:justify-start">
                                     {" "}
-                                    <h1 className="text-3xl font-extrabold text-primary-content">
+                                    <h1 className="text-2xl font-extrabold text-primary-content">
                                         Gasto médio
                                         <br />
-                                        <span className="font-medium">
+                                        <span className="font-normal text-xl">
                                             de energia elétrica
                                         </span>
                                     </h1>
                                 </div>
 
-                                <div className="flex">
+                                <div className="flex items-center justify-center">
                                     <FontAwesomeIcon
                                         icon={faBolt}
-                                        className="h-16 text-warning"
+                                        className="h-10 text-warning"
                                     ></FontAwesomeIcon>
                                     <div className="flex flex-col items-center">
                                         {" "}
-                                        <p className="text-6xl font-bold text-primary-content">
+                                        <p className="text-5xl font-bold text-primary-content">
                                             {generationModal}
                                         </p>
                                         <p className="text-primary-content text-base">
@@ -220,9 +203,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
                             <div className="flex">
                                 <div className="flex flex-col w-1/2">
-                                    <h1 className="text-warning text-5xl font-bold">
+                                    <p className="text-warning text-5xl font-bold">
                                         {apenasNumeros(descriptionModal)}
-                                    </h1>
+                                    </p>
                                     <p className="text-sm text-primary-content">
                                         <span className="text-warning font-semibold">
                                             kWp -{" "}
@@ -231,16 +214,16 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-2 w-1/2">
-                                    <div className="flex flex-col items-center">
-                                        <p className="text-6xl font-bold text-primary-content">
+                                    <div className="flex flex-col items-end">
+                                        <p className="text-5xl font-bold text-primary-content">
                                             {moduleModal}
                                         </p>
                                         <p className="text-base text-primary-content">
                                             Módulos
                                         </p>
                                     </div>
-                                    <div className="flex flex-col items-center">
-                                        <p className="text-6xl font-bold text-primary-content">
+                                    <div className="flex flex-col items-end">
+                                        <p className="text-5xl font-bold text-primary-content">
                                             {inverterModal}
                                         </p>
                                         <p className="text-base text-primary-content">
