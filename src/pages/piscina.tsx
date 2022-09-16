@@ -1,12 +1,12 @@
 import { formatarMoeda } from "../utils/masks";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../services/apiconfig";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
     const [email, setEmail] = useState<string>();
-    const [state, setState] = useState<string>();
+    const [state, setState] = useState<any>();
     const [city, setCity] = useState<any>();
     const [citySelected, setCitySelected] = useState<any>();
     const [tariff, setTariff] = useState<string | number>();
@@ -49,6 +49,12 @@ export default function Piscina({ data }: any): JSX.Element {
 
         //exibir modal se ocorrer tudo bem
     };
+
+    useEffect(() => {
+        data.map((res: any) => {
+            return res.id === parseInt(state) ? setCity(res.cities) : null;
+        });
+    }, [state]);
 
     return (
         <>
@@ -110,20 +116,20 @@ export default function Piscina({ data }: any): JSX.Element {
                             </label>
                             <select
                                 defaultValue="1"
-                                className="select select-ghost"
+                                className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
                                 <option value={1} disabled>
                                     ...
                                 </option>
 
-                                {data?.data.map((response: any) => {
+                                {data.map((response: any) => {
                                     return (
                                         <option
-                                            key={response.state}
-                                            value={response.state}
+                                            key={response.id}
+                                            value={response.id}
                                         >
-                                            {response.state}
+                                            {response.name}
                                         </option>
                                     );
                                 })}
@@ -137,28 +143,22 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <select
-                                defaultValue={1}
-                                className="select select-ghost"
-                                onChange={(e) =>
-                                    setCitySelected(e.target.value)
+                                defaultValue="1"
+                                className="select select-ghost bg-gray-100"
+                                onChange={(event) =>
+                                    setCitySelected(event.target.value)
                                 }
                             >
-                                <option value={1} disabled>
+                                <option selected value="1">
                                     ...
                                 </option>
-                                {!state ? (
-                                    <option value="2" disabled>
-                                        Selecione um estado antes
-                                    </option>
-                                ) : (
-                                    city?.state.map((res: any) => {
-                                        return (
-                                            <option key={res} value={res}>
-                                                {res}
-                                            </option>
-                                        );
-                                    })
-                                )}
+                                {city?.map((res: any) => {
+                                    return (
+                                        <option key={res.id} value={res.id}>
+                                            {res.name}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
 
