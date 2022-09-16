@@ -33,7 +33,7 @@ export const cpfMask = (value: string) => {
 export const formatarMoeda = (e: any) => {
     var v = e?.target.value.replace(/\D/g, "");
 
-    v = "R$ " + (v / 100).toFixed(2);
+    v = (v / 100).toFixed(2);
 
     v = v.replace(".", ",");
 

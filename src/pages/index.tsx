@@ -74,8 +74,9 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                     .replace(/,/g, "")
                     .replace(/ /g, "")
                     .replace("00", ""),
-                tax: tariff,
+                tax: tariff, //formatar o dado tariff
             };
+            console.log(data);
 
             try {
                 const response = await api.post(`photovoltaic`, data);
@@ -382,7 +383,6 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 }
                                 type="tel"
                                 className="input input-ghost w-full bg-gray-100"
-                                value={tariff}
                             />
                         </div>
 

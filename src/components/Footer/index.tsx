@@ -17,10 +17,40 @@ const Footer = () => {
     return (
         <div className="py-10 bg-secondary px-5">
             <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4">
-                <Image src={BF1Img} layout="responsive"></Image>
-                <Image src={BF2Img} layout="responsive"></Image>
-                <Image src={BF3Img} layout="responsive"></Image>
-                <Image src={BF4Img} layout="responsive"></Image>
+                <Link href={"https://solissolar.com.br"} passHref>
+                    <a>
+                        {" "}
+                        <Image
+                            className="cursor-pointer"
+                            src={BF1Img}
+                            layout="responsive"
+                        ></Image>
+                    </a>
+                </Link>
+                <Link href={"https://shoppingsolis.com.br"} passHref>
+                    <Image
+                        className="cursor-pointer"
+                        src={BF2Img}
+                        layout="responsive"
+                    ></Image>
+                </Link>
+                <Link href={"https://solissolar.com.br/blog/"} passHref>
+                    <Image
+                        className="cursor-pointer"
+                        src={BF3Img}
+                        layout="responsive"
+                    ></Image>
+                </Link>
+                <Link
+                    href={"https://api.whatsapp.com/send?phone=5518996241104"}
+                    passHref
+                >
+                    <Image
+                        className="cursor-pointer"
+                        src={BF4Img}
+                        layout="responsive"
+                    ></Image>
+                </Link>
             </div>
 
             <div className="max-w-7xl mx-auto flex flex-col justify-between items-center gap-4 md:items-end md:flex-row">

@@ -342,9 +342,9 @@ export default function Banho({ data }: any) {
                             <h1 className="text-primary-content text-2xl font-bold">
                                 Onde haverá consumo de água quente?
                             </h1>
-                            <div className="flex justify-between flex-col md:flex-row">
-                                <div className="flex gap-3 w-full justify-start">
-                                    <div>
+                            <div className="grid grid-cols-1 md:grid-cols-5">
+                                <div className="flex gap-3 w-full md:justify-start col-span-3">
+                                    <div className="grid grid-cols-1 md:grid-cols-2">
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
@@ -378,8 +378,7 @@ export default function Banho({ data }: any) {
                                                 </span>
                                             </label>
                                         </div>
-                                    </div>
-                                    <div>
+
                                         <div className="form-control ">
                                             <label className="label justify-start gap-2 cursor-pointer">
                                                 <input
@@ -415,7 +414,7 @@ export default function Banho({ data }: any) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-control gap-2 grid grid-cols-1">
+                                <div className="form-control gap-2 grid grid-cols-1 col-span-2">
                                     <button
                                         onClick={handleSubmit}
                                         className="btn btn-warning text-xs"
