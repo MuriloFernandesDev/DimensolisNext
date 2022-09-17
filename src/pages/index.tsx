@@ -5,7 +5,7 @@ import { api } from "../services/apiconfig";
 import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt } from "@fortawesome/free-solid-svg-icons";
+import { faBolt, faXmark } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
@@ -161,7 +161,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         }
                     >
                         <label
-                            className="modal-box w-[450px] bg-white flex flex-col p-10 gap-4 relative"
+                            className="modal-box w-[450px] bg-white flex flex-col p-10 gap-3 relative"
                             htmlFor=""
                         >
                             <div className="flex justify-center">
@@ -201,8 +201,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </div>
                             </div>
 
-                            <div className="flex">
-                                <div className="flex flex-col w-1/2">
+                            <div className="flex flex-col md:flex-row items-center md:items-start gap-3">
+                                <div className="flex flex-col items-center md:items-start">
                                     <p className="text-warning text-5xl font-bold">
                                         {apenasNumeros(descriptionModal)}
                                     </p>
@@ -213,8 +213,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                         {apenasString(descriptionModal)}
                                     </p>
                                 </div>
-                                <div className="grid grid-cols-2 w-1/2">
-                                    <div className="flex flex-col items-end">
+                                <div className="grid grid-cols-2 gap-3">
+                                    <div className="flex flex-col items-center md:items-end">
                                         <p className="text-5xl font-bold text-primary-content">
                                             {moduleModal}
                                         </p>
@@ -222,7 +222,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                             Módulos
                                         </p>
                                     </div>
-                                    <div className="flex flex-col items-end">
+                                    <div className="flex flex-col items-center md:items-end">
                                         <p className="text-5xl font-bold text-primary-content">
                                             {inverterModal}
                                         </p>
