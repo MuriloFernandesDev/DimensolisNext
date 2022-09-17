@@ -172,8 +172,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     layout="fixed"
                                 ></Image>
                             </div>
-                            <div className="flex items-center flex-col text-center w-full md:text-start md:flex-row gap-3 md:gap-0">
-                                <div className="flex w-full justify-center md:justify-start">
+                            <div className="flex items-center flex-col text-center w-full sm:text-start sm:flex-row gap-3 sm:gap-0">
+                                <div className="flex w-full justify-center sm:justify-start">
                                     {" "}
                                     <h1 className="text-2xl font-extrabold text-primary-content">
                                         Gasto médio
@@ -201,8 +201,8 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col md:flex-row items-center md:items-start gap-3">
-                                <div className="flex flex-col items-center md:items-start">
+                            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3">
+                                <div className="flex flex-col items-center sm:items-start">
                                     <p className="text-warning text-5xl font-bold">
                                         {apenasNumeros(descriptionModal)}
                                     </p>
@@ -214,7 +214,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
-                                    <div className="flex flex-col items-center md:items-end">
+                                    <div className="flex flex-col items-center sm:items-end">
                                         <p className="text-5xl font-bold text-primary-content">
                                             {moduleModal}
                                         </p>
@@ -222,7 +222,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                             Módulos
                                         </p>
                                     </div>
-                                    <div className="flex flex-col items-center md:items-end">
+                                    <div className="flex flex-col items-center sm:items-end">
                                         <p className="text-5xl font-bold text-primary-content">
                                             {inverterModal}
                                         </p>
