@@ -17,14 +17,14 @@ export default function Banho({ data }: any) {
     const [state, setState] = useState<any>();
     const [city, setCity] = useState<any>();
     const [citySelected, setCitySelected] = useState<any>();
-    const [climate, setClimate] = useState<number | string>();
+    const [climate, setClimate] = useState<any>();
     const [person, setPerson] = useState<any>();
     const [numberBaths, setNumberBaths] = useState<any>();
     const [consumer, setConsumer] = useState<any>([]);
     const [showModal, setShowModal] = useState(false);
     const [volumeModal, setVolumeModal] = useState();
     const [areaModal, setAreaModal] = useState();
-    const [producModal, setProductModal] = useState([]);
+    const [producModal, setProductModal] = useState<any>([]);
 
     const handleSubmit = async (event: any) => {
         if (!name) {
@@ -74,12 +74,13 @@ export default function Banho({ data }: any) {
             }); //remove os consumers repetidos
 
             const data = {
-                weather: parseInt(numberBaths),
+                weather: parseInt(climate),
                 city: parseInt(citySelected),
                 people: parseInt(person),
                 bath: parseInt(numberBaths),
                 usage: newConsumer,
             };
+            console.log(data);
 
             try {
                 const response = await api.post(`bath`, data);
@@ -172,9 +173,9 @@ export default function Banho({ data }: any) {
                                     layout="fixed"
                                 ></Image>
                             </div>
-                            <div className="w-full flex">
-                                <div className="flex flex-col justify-center w-1/2">
-                                    <span className="text-4xl font-extrabold text-primary-content">
+                            <div className="w-full flex justify-between">
+                                <div className="flex flex-col justify-center">
+                                    <span className="sm:text-4xl text-3xl font-extrabold text-primary-content">
                                         Demanda{" "}
                                     </span>
                                     <span className="text-xl text-primary-content font-light">
@@ -182,15 +183,17 @@ export default function Banho({ data }: any) {
                                     </span>
                                 </div>
 
-                                <div className="flex items-center justify-between w-1/2">
-                                    <Image
-                                        src={WaterImg}
-                                        width={40}
-                                        height={40}
-                                        layout="fixed"
-                                    ></Image>
+                                <div className="flex items-center justify-end sm:justify-between gap-5">
+                                    <div className="hidden sm:block">
+                                        <Image
+                                            src={WaterImg}
+                                            width={40}
+                                            height={40}
+                                            layout="fixed"
+                                        ></Image>
+                                    </div>
                                     <div className="flex flex-col items-end">
-                                        <span className="text-6xl text-primary-content font-bold">
+                                        <span className="sm:text-6xl text-4xl text-primary-content font-bold">
                                             {volumeModal}
                                         </span>
                                         <span className="text-xl font-semibold text-primary-content">
@@ -203,18 +206,21 @@ export default function Banho({ data }: any) {
                             <div className="w-full flex">
                                 <div className="flex flex-col items-start justify-center w-1/2">
                                     <span className="text-4xl font-extrabold text-[#00c1ff]">
-                                        500 litros
+                                        {producModal[0].model}
                                     </span>
-                                    <span className="text-base  text-primary-content font-light">
-                                        Reservátorio Termico Solis
+                                    <span className="text-base text-primary-content font-normal">
+                                        <span className="text-[#00c1ff] font-medium">
+                                            Reservátorio
+                                        </span>{" "}
+                                        Termico Solis
                                     </span>
                                 </div>
 
-                                <div className="flex flex-col items-end justify-between w-1/2">
-                                    <span className="text-4xl font-extrabold text-primary-content text-end">
+                                <div className="flex flex-col items-end w-1/2">
+                                    <span className="sm:text-6xl text-4xl font-extrabold text-primary-content text-end">
                                         {areaModal}
                                     </span>
-                                    <span className="text-base text-primary-content font-light text-end">
+                                    <span className="text-base text-primary-content font-normal text-end">
                                         Coletor Solar Trópicos V150 (1,5m²)
                                     </span>
                                 </div>
@@ -336,7 +342,7 @@ export default function Banho({ data }: any) {
                                             setCitySelected(e.target.value)
                                         }
                                     >
-                                        <option value="DEFAULT" disabled>
+                                        <option value="DEFAULT" selected>
                                             ...
                                         </option>
                                         {city?.map((res: any) => (
@@ -364,7 +370,7 @@ export default function Banho({ data }: any) {
                                             setClimate(e.target.value)
                                         }
                                     >
-                                        <option value="DEFAULT" disabled>
+                                        <option value="DEFAULT" selected>
                                             ...
                                         </option>
                                         <option value={1}>Muito frio</option>
