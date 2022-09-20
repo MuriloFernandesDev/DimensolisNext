@@ -1,4 +1,4 @@
-import { formatarMoeda } from "../utils/masks";
+import { formatarMoeda, soNumerosInput } from "../utils/masks";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { api } from "../services/apiconfig";
@@ -468,6 +468,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                 onChange={(e) => setArea(e.target.value)}
                                 type="tel"
                                 maxLength={2}
+                                onKeyUp={(e) => soNumerosInput(e)}
                                 className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
