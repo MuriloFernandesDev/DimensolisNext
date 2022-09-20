@@ -2,6 +2,12 @@ import { formatarMoeda } from "../utils/masks";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { api } from "../services/apiconfig";
+import Image from "next/image";
+import styles from "../styles/styles.module.scss";
+import AbracadeiraImg from "../assets/images/abracadeira.png";
+import AdaptadorImg from "../assets/images/adaptador.png";
+import QuebraVacuoImg from "../assets/images/quebra_vacuo.png";
+import TampaoImg from "../assets/images/tampao.png";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -9,10 +15,9 @@ export default function Piscina({ data }: any): JSX.Element {
     const [state, setState] = useState<any>();
     const [city, setCity] = useState<any>();
     const [citySelected, setCitySelected] = useState<any>();
-    const [tariff, setTariff] = useState<string | number>();
-    const [invoice, setInvoice] = useState<string | number>();
-    const [inverter, setInverter] = useState<string | number>();
-    const [showModal, setShowModal] = useState(false);
+    const [climate, setClimate] = useState<any>();
+    const [conditions, setConditions] = useState<any>();
+    const [showModal, setShowModal] = useState(true);
 
     const handleSubmit = async (event: any) => {
         if (!name) {
@@ -31,20 +36,9 @@ export default function Piscina({ data }: any): JSX.Element {
             toast.error("Selecione uma cidade!");
             return;
         }
-        if (!tariff) {
+        if (!climate) {
             toast.error("Insira a tarifa!");
             return;
-        }
-        if (!invoice) {
-            toast.error("Insira sua fatura!");
-            return;
-        }
-        if (!inverter) {
-            toast.error("Selecione seu inversor!");
-            return;
-        }
-        if (name && email && state && city && tariff && invoice && inverter) {
-            setShowModal(!showModal);
         }
 
         //exibir modal se ocorrer tudo bem
@@ -58,6 +52,150 @@ export default function Piscina({ data }: any): JSX.Element {
 
     return (
         <>
+            {showModal === true ? (
+                <>
+                    <input
+                        type="checkbox"
+                        id="my-modal-4"
+                        className="modal-toggle"
+                        onClick={() => setShowModal(!showModal)}
+                    />
+                    <label
+                        htmlFor="my-modal-4"
+                        className={
+                            styles.modal +
+                            (showModal !== true ? " modal-toggle" : "")
+                        }
+                    >
+                        <label
+                            className="modal-box w-[500px] bg-white flex flex-col gap-6 p-10 relative"
+                            htmlFor=""
+                        >
+                            <div className="flex justify-center">
+                                <h1 className="text-4xl font-extrabold text-primary-content">
+                                    Kit de instalação
+                                </h1>
+                            </div>
+                            <div className="flex gap-5 flex-wrap justify-center">
+                                <div className="flex flex-col items-center justify-center gap-1 relative">
+                                    <span className="badge badge-warning absolute -mt-24 -ml-14">
+                                        1X
+                                    </span>
+                                    <Image
+                                        src={AbracadeiraImg}
+                                        layout="fixed"
+                                        width={70}
+                                        height={70}
+                                    ></Image>
+                                    <span className="font-bold text-black">
+                                        Abraçadeira
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-center justify-center gap-1 relative">
+                                    <span className="badge badge-warning absolute -mt-24 -ml-20">
+                                        1X
+                                    </span>
+                                    <Image
+                                        src={AdaptadorImg}
+                                        layout="fixed"
+                                        width={70}
+                                        height={70}
+                                    ></Image>
+                                    <span className="font-bold text-black">
+                                        Adaptador
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-center justify-center gap-1 relative">
+                                    <span className="badge badge-warning absolute -mt-24 -ml-16">
+                                        1X
+                                    </span>
+                                    <Image
+                                        src={QuebraVacuoImg}
+                                        layout="fixed"
+                                        width={70}
+                                        height={70}
+                                    ></Image>
+                                    <span className="font-bold text-black">
+                                        Quebra-vácuo
+                                    </span>
+                                </div>
+                                <div className="flex flex-col items-center justify-center gap-1 relative">
+                                    <span className="badge badge-warning absolute -mt-24 -ml-16">
+                                        1X
+                                    </span>
+                                    <Image
+                                        src={TampaoImg}
+                                        layout="fixed"
+                                        width={70}
+                                        height={70}
+                                    ></Image>
+                                    <span className="font-bold text-black">
+                                        Tampão
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col items-start text-primary-content">
+                                        <span className="text-lg font-normal">
+                                            Faixa de temperatura
+                                        </span>
+                                        <span className="text-4xl font-extrabold">
+                                            Da Piscina
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-start">
+                                        <span className="text-3xl font-extrabold text-warning">
+                                            28°C - 30°C
+                                        </span>
+                                        <span className="text-lg font-normal  text-primary-content">
+                                            Graus Celsius
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="divider lg:divider-horizontal" />
+                                <div className="flex flex-col gap-4 text-primary-content">
+                                    <div className="flex flex-col items-center ">
+                                        <span className="text-4xl font-extrabold">
+                                            6.72
+                                        </span>
+                                        <span className="text-lg font-normal">
+                                            Área Coletora (m²)
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-4xl font-extrabold">
+                                            2
+                                        </span>
+                                        <span className="text-lg font-normal ">
+                                            Coletores necessários
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="grid gap-3">
+                                <a
+                                    onClick={() => setShowModal(!showModal)}
+                                    className="btn btn-warning w-full font-bold text-black"
+                                >
+                                    Calcular novamente
+                                </a>
+                                <a
+                                    href="https://api.whatsapp.com/send?phone=5518996241104"
+                                    rel="noopener"
+                                    className="btn btn-warning w-full font-bold text-black"
+                                >
+                                    Orçamento
+                                </a>
+                            </div>
+                        </label>
+                    </label>
+                </>
+            ) : (
+                ""
+            )}
             <div className="flex flex-col gap-4 items-center">
                 <div className="flex flex-col">
                     <h1 className="text-primary-content text-2xl font-bold leading-tight md:text-5xl">
@@ -167,13 +305,19 @@ export default function Piscina({ data }: any): JSX.Element {
                                     Tipo de clima
                                 </span>
                             </label>
-                            <input
-                                onChange={(event: any) =>
-                                    setTariff(event.target.value)
-                                }
-                                type="tel"
-                                className="input input-ghost w-full bg-gray-100"
-                            />
+                            <select
+                                defaultValue={"DEFAULT"}
+                                className="select select-ghost bg-gray-100"
+                                onChange={(e) => setClimate(e.target.value)}
+                            >
+                                <option value="DEFAULT" selected>
+                                    ...
+                                </option>
+                                <option value={1}>Muito frio</option>
+                                <option value={2}>Frio</option>
+                                <option value={3}>Quente</option>
+                                <option value={4}>Muito quente</option>
+                            </select>
                         </div>
 
                         <div className="form-control w-full">
