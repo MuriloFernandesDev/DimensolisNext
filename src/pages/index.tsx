@@ -135,7 +135,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
     };
 
     useEffect(() => {
-        data.map((res: any) => {
+        data?.map((res: any) => {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
     }, [state]);

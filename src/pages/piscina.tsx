@@ -8,6 +8,9 @@ import AbracadeiraImg from "../assets/images/abracadeira.png";
 import AdaptadorImg from "../assets/images/adaptador.png";
 import QuebraVacuoImg from "../assets/images/quebra_vacuo.png";
 import TampaoImg from "../assets/images/tampao.png";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -17,7 +20,16 @@ export default function Piscina({ data }: any): JSX.Element {
     const [citySelected, setCitySelected] = useState<any>();
     const [climate, setClimate] = useState<any>();
     const [conditions, setConditions] = useState<any>();
-    const [showModal, setShowModal] = useState(true);
+    const [aplication, setAplication] = useState<any>();
+    const [area, setArea] = useState<any>();
+    const [showModal, setShowModal] = useState(false);
+    const [areaModal, setAreaModal] = useState();
+    const [qtdAbracadeiraModal, setQtdAbracadeiraModal] = useState();
+    const [qtdAdaptadorModal, setQtdAdaptadorModal] = useState();
+    const [qtdTampaModal, setQtdTampaModal] = useState();
+    const [qtdVacuoModal, setQtdVacuoModal] = useState();
+    const [coletoresModal, setColetoresModal] = useState();
+    const [temperaturaModal, setTemperaturaModal] = useState();
 
     const handleSubmit = async (event: any) => {
         if (!name) {
@@ -37,15 +49,98 @@ export default function Piscina({ data }: any): JSX.Element {
             return;
         }
         if (!climate) {
-            toast.error("Insira a tarifa!");
+            toast.error("Selecione o tipo de clima!");
             return;
+        }
+        if (!conditions) {
+            toast.error("Selecione uma condição!");
+            return;
+        }
+        if (!aplication) {
+            toast.error("Selecione uma aplicação!");
+            return;
+        }
+        if (
+            name &&
+            email &&
+            state &&
+            citySelected &&
+            climate &&
+            conditions &&
+            aplication
+        ) {
+            const data = {
+                weather: parseInt(climate),
+                city: parseInt(citySelected),
+                area: parseInt(area),
+                application: aplication,
+                conditions: conditions,
+            };
+
+            try {
+                const response = await api.post(`pool`, data);
+
+                if (response.data.error) {
+                    toast.custom((t) => (
+                        <div
+                            className={`${
+                                t.visible ? "animate-enter" : "animate-leave"
+                            } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+                        >
+                            <div className="flex-1 w-0 p-4">
+                                <div className="flex items-start">
+                                    <div className="ml-3 flex flex-row-reverse items-center justify-center gap-3">
+                                        <p className="text-sm font-medium text-info-content">
+                                            {response.data.error}
+                                        </p>
+                                        <Link
+                                            href={`https://wa.me/5518996241104?text=Tentei%20usar%20a%20calculadora%20online%20e%20recebi%20essa%20mensagem:%20${response.data.error}`}
+                                            passHref
+                                        >
+                                            <a>
+                                                {" "}
+                                                <FontAwesomeIcon
+                                                    className="w-10 h-10 text-warning"
+                                                    icon={faWhatsapp}
+                                                />
+                                            </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex border-l border-gray-200">
+                                <button
+                                    onClick={() => toast.dismiss(t.id)}
+                                    className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-info-content"
+                                >
+                                    Fechar
+                                </button>
+                            </div>
+                        </div>
+                    ));
+                    return;
+                } else {
+                    //seta estados do modal
+                    setAreaModal(response.data.area_necessaria);
+                    setQtdAbracadeiraModal(response.data.qtd_abracadeira);
+                    setQtdAdaptadorModal(response.data.qtd_adaptador);
+                    setQtdTampaModal(response.data.qtd_tampao);
+                    setQtdVacuoModal(response.data.qtd_quebravacuo);
+                    setColetoresModal(response.data.qtd_coletores_piscina);
+                    setTemperaturaModal(response.data.temperatura_alcancada);
+                    //abre modal
+                    setShowModal(!showModal);
+                }
+            } catch (error) {
+                toast.error("erro no sevidor");
+            }
         }
 
         //exibir modal se ocorrer tudo bem
     };
 
     useEffect(() => {
-        data.map((res: any) => {
+        data?.map((res: any) => {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
     }, [state]);
@@ -76,10 +171,11 @@ export default function Piscina({ data }: any): JSX.Element {
                                     Kit de instalação
                                 </h1>
                             </div>
+
                             <div className="flex gap-5 flex-wrap justify-center">
                                 <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute -mt-24 -ml-14">
-                                        1X
+                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-14">
+                                        {qtdAbracadeiraModal}X
                                     </span>
                                     <Image
                                         src={AbracadeiraImg}
@@ -92,8 +188,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </span>
                                 </div>
                                 <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute -mt-24 -ml-20">
-                                        1X
+                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-20">
+                                        {qtdAdaptadorModal}X
                                     </span>
                                     <Image
                                         src={AdaptadorImg}
@@ -106,8 +202,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </span>
                                 </div>
                                 <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute -mt-24 -ml-16">
-                                        1X
+                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
+                                        {qtdVacuoModal}X
                                     </span>
                                     <Image
                                         src={QuebraVacuoImg}
@@ -120,8 +216,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </span>
                                 </div>
                                 <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute -mt-24 -ml-16">
-                                        1X
+                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
+                                        {qtdTampaModal}X
                                     </span>
                                     <Image
                                         src={TampaoImg}
@@ -134,7 +230,6 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </span>
                                 </div>
                             </div>
-
                             <div className="flex justify-between">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col items-start text-primary-content">
@@ -147,7 +242,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </div>
                                     <div className="flex flex-col items-start">
                                         <span className="md:text-3xl font-extrabold text-warning">
-                                            28°C - 30°C
+                                            {temperaturaModal}
                                         </span>
                                         <span className="md:text-lg font-normal  text-primary-content">
                                             Graus Celsius
@@ -158,7 +253,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                 <div className="flex flex-col gap-4 text-primary-content">
                                     <div className="flex flex-col items-center ">
                                         <span className="md:text-4xl font-extrabold">
-                                            6.72
+                                            {areaModal}
                                         </span>
                                         <span className="md:text-lg font-normal">
                                             Área Coletora (m²)
@@ -166,7 +261,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </div>
                                     <div className="flex flex-col items-center">
                                         <span className="md:text-4xl font-extrabold">
-                                            2
+                                            {coletoresModal}
                                         </span>
                                         <span className="md:text-lg font-normal text-center">
                                             Coletores necessários
@@ -174,7 +269,6 @@ export default function Piscina({ data }: any): JSX.Element {
                                     </div>
                                 </div>
                             </div>
-
                             <div className="grid gap-3">
                                 <a
                                     onClick={() => setShowModal(!showModal)}
@@ -326,22 +420,42 @@ export default function Piscina({ data }: any): JSX.Element {
                                     Condição da piscina
                                 </span>
                             </label>
-                            <input
-                                type="text"
-                                className="input input-ghost w-full bg-gray-100"
-                            />
+                            <select
+                                defaultValue={"DEFAULT"}
+                                className="select select-ghost bg-gray-100"
+                                onChange={(e) => setConditions(e.target.value)}
+                            >
+                                <option value="DEFAULT" selected>
+                                    ...
+                                </option>
+                                <option value={"aberta"}>Aberta</option>
+                                <option value={"fechada"}>Fechada</option>
+                            </select>
                         </div>
-
                         <div className="form-control w-full">
                             <label className="label">
                                 <span className="label-text text-primary-content text-xs">
                                     Aplicação
                                 </span>
                             </label>
-                            <input
-                                type="text"
-                                className="input input-ghost w-full bg-gray-100"
-                            />
+                            <select
+                                defaultValue={"DEFAULT"}
+                                className="select select-ghost bg-gray-100"
+                                onChange={(e) => setAplication(e.target.value)}
+                            >
+                                <option value="DEFAULT" selected>
+                                    ...
+                                </option>
+                                <option value={"clube"}>Clube</option>
+                                <option value={"residencial"}>
+                                    Residencial
+                                </option>
+                                <option value={"academia"}>Academia</option>
+                                <option value={"spa"}>SPA</option>
+                                <option value={"fisioterapia"}>
+                                    Fisioterapia
+                                </option>
+                            </select>
                         </div>
 
                         <div className="form-control w-full">
@@ -351,7 +465,9 @@ export default function Piscina({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
-                                type="text"
+                                onChange={(e) => setArea(e.target.value)}
+                                type="tel"
+                                maxLength={2}
                                 className="input input-ghost w-full bg-gray-100"
                             />
                         </div>
@@ -370,7 +486,7 @@ export default function Piscina({ data }: any): JSX.Element {
                     </form>
 
                     <div className="mt-10">
-                        <span className="w-full text-sm text-black">
+                        <span className="w-full text-xs text-black">
                             Observações: <br />1 - O dimensionamento acima
                             considera o uso obrigatório de capa térmica na
                             piscina por no mínimo 12 horas/dia no período

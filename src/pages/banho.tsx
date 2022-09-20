@@ -136,7 +136,7 @@ export default function Banho({ data }: any) {
     };
 
     useEffect(() => {
-        data.map((res: any) => {
+        data?.map((res: any) => {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
     }, [state]);
@@ -547,7 +547,7 @@ export default function Banho({ data }: any) {
                                 </div>
                             </div>
                             <div className="mt-10">
-                                <span className="w-full text-sm text-black">
+                                <span className="w-full text-xs text-black">
                                     Observações: <br /> 1 - O dimensionamento
                                     acima é uma sugestão e pode sofrer
                                     alterações dependendo do perfil de consumo
