@@ -80,7 +80,6 @@ export default function Banho({ data }: any) {
                 bath: parseInt(numberBaths),
                 usage: newConsumer,
             };
-            console.log(data);
 
             try {
                 const response = await api.post(`bath`, data);
@@ -125,8 +124,6 @@ export default function Banho({ data }: any) {
                     ));
                     return;
                 } else {
-                    console.log(response);
-
                     setVolumeModal(response.data.volume);
                     setAreaModal(response.data.area);
                     setProductModal(response.data.product);

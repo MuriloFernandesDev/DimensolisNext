@@ -29,7 +29,7 @@ const Footer = () => {
         <div className="py-10 bg-secondary px-5">
             <div className="w-full justify-around gap-5 max-w-7xl mx-auto mb-10 grid grid-cols-2 md:grid-cols-4">
                 <Link href={"https://solissolar.com.br"} passHref>
-                    <a>
+                    <a target={"_blank"}>
                         <Image
                             className="cursor-pointer"
                             src={BF1Img}
@@ -38,7 +38,7 @@ const Footer = () => {
                     </a>
                 </Link>
                 <Link href={"https://shoppingsolis.com.br"} passHref>
-                    <a>
+                    <a target={"_blank"}>
                         <Image
                             className="cursor-pointer"
                             src={BF2Img}
@@ -47,7 +47,7 @@ const Footer = () => {
                     </a>
                 </Link>
                 <Link href={"https://solissolar.com.br/blog/"} passHref>
-                    <a>
+                    <a target={"_blank"}>
                         <Image
                             className="cursor-pointer"
                             src={BF3Img}
@@ -59,7 +59,7 @@ const Footer = () => {
                     href={"https://api.whatsapp.com/send?phone=5518996241104"}
                     passHref
                 >
-                    <a>
+                    <a target={"_blank"}>
                         <Image
                             className="cursor-pointer"
                             src={BF4Img}

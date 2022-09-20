@@ -75,7 +75,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         .replace(/ /g, "")
                         .replace("00", "")
                 ),
-                tax: tariff,
+                tax: parseInt(tariff.toLocaleString("pt-BR")),
                 // .replace(",", "")
                 // .replace("00", "")
                 // .replace(/\B(?=(\d{2})+(?!\d))/g, "."), //formatar o dado tariff
@@ -364,7 +364,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 </span>
                             </label>
                             <input
-                                onKeyUp={(e) => formatarMoeda(e)}
+                                //  onKeyUp={(e) => formatarMoeda(e)}
                                 onChange={(event: any) =>
                                     setTariff(event.target.value)
                                 }
@@ -447,10 +447,18 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     Conheça nossos inversores
                                 </p>
                                 <div className="p-5 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
-                                    <Image
-                                        src={InversoresImg}
-                                        layout="responsive"
-                                    ></Image>
+                                    <Link
+                                        href={
+                                            "https://solissolar.com.br/sistema-fotovoltaico/"
+                                        }
+                                    >
+                                        <a target={"_blank"}>
+                                            <Image
+                                                src={InversoresImg}
+                                                layout="responsive"
+                                            ></Image>
+                                        </a>
+                                    </Link>
                                 </div>
                             </div>
                             <div>
@@ -458,10 +466,18 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     Catálogo digital
                                 </p>
                                 <div className="relative -m-2 mt-1 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
-                                    <Image
-                                        src={CatalogoImg}
-                                        layout="responsive"
-                                    ></Image>
+                                    <Link
+                                        href={
+                                            "https://solissolar.com.br/wp-content/uploads/2022/06/catalogo_fotovoltaico_digital.pdf"
+                                        }
+                                    >
+                                        <a target={"_blank"}>
+                                            <Image
+                                                src={CatalogoImg}
+                                                layout="responsive"
+                                            ></Image>
+                                        </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
