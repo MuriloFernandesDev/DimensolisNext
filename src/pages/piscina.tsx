@@ -72,7 +72,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             htmlFor=""
                         >
                             <div className="flex justify-center">
-                                <h1 className="text-4xl font-extrabold text-primary-content">
+                                <h1 className="md:text-4xl text-2xl font-extrabold text-primary-content">
                                     Kit de instalação
                                 </h1>
                             </div>
@@ -84,8 +84,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     <Image
                                         src={AbracadeiraImg}
                                         layout="fixed"
-                                        width={70}
-                                        height={70}
+                                        width={60}
+                                        height={60}
                                     ></Image>
                                     <span className="font-bold text-black">
                                         Abraçadeira
@@ -98,8 +98,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     <Image
                                         src={AdaptadorImg}
                                         layout="fixed"
-                                        width={70}
-                                        height={70}
+                                        width={60}
+                                        height={60}
                                     ></Image>
                                     <span className="font-bold text-black">
                                         Adaptador
@@ -112,8 +112,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     <Image
                                         src={QuebraVacuoImg}
                                         layout="fixed"
-                                        width={70}
-                                        height={70}
+                                        width={60}
+                                        height={60}
                                     ></Image>
                                     <span className="font-bold text-black">
                                         Quebra-vácuo
@@ -126,8 +126,8 @@ export default function Piscina({ data }: any): JSX.Element {
                                     <Image
                                         src={TampaoImg}
                                         layout="fixed"
-                                        width={70}
-                                        height={70}
+                                        width={60}
+                                        height={60}
                                     ></Image>
                                     <span className="font-bold text-black">
                                         Tampão
@@ -138,18 +138,18 @@ export default function Piscina({ data }: any): JSX.Element {
                             <div className="flex justify-between">
                                 <div className="flex flex-col gap-4">
                                     <div className="flex flex-col items-start text-primary-content">
-                                        <span className="text-lg font-normal">
+                                        <span className="md:text-lg font-normal">
                                             Faixa de temperatura
                                         </span>
-                                        <span className="text-4xl font-extrabold">
+                                        <span className="md:text-4xl font-extrabold">
                                             Da Piscina
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-start">
-                                        <span className="text-3xl font-extrabold text-warning">
+                                        <span className="md:text-3xl font-extrabold text-warning">
                                             28°C - 30°C
                                         </span>
-                                        <span className="text-lg font-normal  text-primary-content">
+                                        <span className="md:text-lg font-normal  text-primary-content">
                                             Graus Celsius
                                         </span>
                                     </div>
@@ -157,18 +157,18 @@ export default function Piscina({ data }: any): JSX.Element {
                                 <div className="divider lg:divider-horizontal" />
                                 <div className="flex flex-col gap-4 text-primary-content">
                                     <div className="flex flex-col items-center ">
-                                        <span className="text-4xl font-extrabold">
+                                        <span className="md:text-4xl font-extrabold">
                                             6.72
                                         </span>
-                                        <span className="text-lg font-normal">
+                                        <span className="md:text-lg font-normal">
                                             Área Coletora (m²)
                                         </span>
                                     </div>
                                     <div className="flex flex-col items-center">
-                                        <span className="text-4xl font-extrabold">
+                                        <span className="md:text-4xl font-extrabold">
                                             2
                                         </span>
-                                        <span className="text-lg font-normal ">
+                                        <span className="md:text-lg font-normal text-center">
                                             Coletores necessários
                                         </span>
                                     </div>

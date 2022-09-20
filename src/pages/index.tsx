@@ -75,10 +75,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         .replace(/ /g, "")
                         .replace("00", "")
                 ),
-                tax: parseInt(tariff.toLocaleString("pt-BR")),
-                // .replace(",", "")
-                // .replace("00", "")
-                // .replace(/\B(?=(\d{2})+(?!\d))/g, "."), //formatar o dado tariff
+                tax: tariff, //formatar o dado tariff
             };
 
             try {
