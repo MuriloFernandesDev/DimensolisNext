@@ -10,12 +10,14 @@ import {
     faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
 import { ReactElement } from "react";
+import { useRouter } from "next/router";
 
 interface NavProps {
     children: any;
 }
 
 const Navbar = ({ children }: NavProps) => {
+    const router = useRouter();
     return (
         <div className="drawer drawer-end">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -154,22 +156,30 @@ const Navbar = ({ children }: NavProps) => {
                         </svg>
                     </label>
 
-                    <Link href={"/"} passHref>
-                        <a className="btn btn-ghost normal-case w-full text-sm font-semibold text-secondary">
-                            Fotovoltaico
-                        </a>
-                    </Link>
+                    <label
+                        onClick={() => router.push("/")}
+                        className="btn btn-ghost normal-case w-full text-sm font-semibold text-secondary"
+                        htmlFor="my-drawer-4"
+                    >
+                        Fotovoltaico
+                    </label>
 
-                    <Link href={"/banho"} passHref>
-                        <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
-                            Banho
-                        </a>
-                    </Link>
-                    <Link href={"/piscina"} passHref>
-                        <a className="btn btn-ghost normal-case text-sm font-semibold text-secondary">
-                            Piscina
-                        </a>
-                    </Link>
+                    <label
+                        onClick={() => router.push("/banho")}
+                        className="btn btn-ghost normal-case w-full text-sm font-semibold text-secondary"
+                        htmlFor="my-drawer-4"
+                    >
+                        Banho
+                    </label>
+
+                    <label
+                        onClick={() => router.push("/piscina")}
+                        className="btn btn-ghost normal-case w-full text-sm font-semibold text-secondary"
+                        htmlFor="my-drawer-4"
+                    >
+                        Piscina
+                    </label>
+
                     <Link
                         href={
                             "https://api.whatsapp.com/send?phone=5518996241104"
