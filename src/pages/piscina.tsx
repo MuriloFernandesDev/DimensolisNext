@@ -30,6 +30,7 @@ export default function Piscina({ data }: any): JSX.Element {
     const [qtdVacuoModal, setQtdVacuoModal] = useState();
     const [coletoresModal, setColetoresModal] = useState();
     const [temperaturaModal, setTemperaturaModal] = useState();
+    const [cityClimate, setCityClimate] = useState<any>();
 
     const handleSubmit = async (event: any) => {
         if (!name) {
@@ -144,6 +145,23 @@ export default function Piscina({ data }: any): JSX.Element {
             return res.id === parseInt(state) ? setCity(res.cities) : null;
         });
     }, [state]);
+
+    useEffect(() => {
+        const GetClimate = async () => {
+            if (citySelected !== undefined && citySelected !== "DEFAULT") {
+                try {
+                    const { data } = await api.get(`cities/${citySelected}`);
+                    setClimate(data.weather_id);
+                    setCityClimate(data.weather_id);
+                } catch (error) {
+                    return;
+                }
+                return;
+            }
+            return;
+        };
+        GetClimate();
+    }, [citySelected]);
 
     return (
         <>
@@ -404,13 +422,31 @@ export default function Piscina({ data }: any): JSX.Element {
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setClimate(e.target.value)}
                             >
-                                <option value="DEFAULT" selected>
-                                    ...
-                                </option>
-                                <option value={1}>Muito frio</option>
-                                <option value={2}>Frio</option>
-                                <option value={3}>Quente</option>
-                                <option value={4}>Muito quente</option>
+                                {cityClimate === 1 ? (
+                                    <option value={1} selected>
+                                        Muito frio
+                                    </option>
+                                ) : cityClimate === 2 ? (
+                                    <option value={2} selected>
+                                        Frio
+                                    </option>
+                                ) : cityClimate === 3 ? (
+                                    <option value={3} selected>
+                                        Quente
+                                    </option>
+                                ) : cityClimate === 4 ? (
+                                    <option value={4} selected>
+                                        Muito quente
+                                    </option>
+                                ) : (
+                                    <>
+                                        <option value="DEFAULT">...</option>
+                                        <option value={1}>Muito frio</option>
+                                        <option value={2}>Frio</option>
+                                        <option value={3}>Quente</option>
+                                        <option value={4}>Muito quente</option>
+                                    </>
+                                )}
                             </select>
                         </div>
 
