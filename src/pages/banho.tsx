@@ -10,6 +10,7 @@ import WaterImg from "../assets/images/water.png";
 import GeneratorImg from "../assets/images/generator.png";
 import Link from "next/link";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import Head from "next/head";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
@@ -161,6 +162,12 @@ export default function Banho({ data }: any) {
 
     return (
         <>
+            <Head>
+                <title>
+                    Banho | Dimensolis - Calculadora de Energia Solar
+                    Fotovoltaica da Solis
+                </title>
+            </Head>
             {showModal === true ? (
                 <>
                     <input

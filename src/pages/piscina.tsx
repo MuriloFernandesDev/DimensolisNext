@@ -11,6 +11,7 @@ import TampaoImg from "../assets/images/tampao.png";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import Head from "next/head";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -165,6 +166,12 @@ export default function Piscina({ data }: any): JSX.Element {
 
     return (
         <>
+            <Head>
+                <title>
+                    Piscina | Dimensolis - Calculadora de Energia Solar
+                    Fotovoltaica da Solis
+                </title>
+            </Head>
             {showModal === true ? (
                 <>
                     <input

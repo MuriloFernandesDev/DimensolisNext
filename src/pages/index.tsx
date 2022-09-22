@@ -11,6 +11,7 @@ import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import GeneratorImg from "../assets/images/generatorIndex.png";
+import Head from "next/head";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -142,6 +143,12 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
 
     return (
         <>
+            <Head>
+                <title>
+                    Dimensolis - Calculadora de Energia Solar Fotovoltaica da
+                    Solis
+                </title>
+            </Head>
             {showModal === true ? (
                 <>
                     <input

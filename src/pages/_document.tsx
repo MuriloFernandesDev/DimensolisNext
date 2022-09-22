@@ -5,6 +5,11 @@ export default class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <meta
+                        name="description"
+                        content="A Calculadora de Energia Solar Fotovoltáica é uma ferramenta virtual da Solis para a simulação do custo e tamanho de um sistema de geração de energia solar fotovoltaica."
+                    />
+                    <link rel="icon" type="image/ico" href="/favicon.png" />
                     <script
                         type="text/javascript"
                         async
