@@ -67,7 +67,7 @@ const BlogContent = ({
                         <p>{date(data)}</p>
                     </div>
 
-                    <a>Ver mais</a>
+                    <span>Ver mais</span>
                 </div>
             </div>
         </div>
