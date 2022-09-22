@@ -318,9 +318,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 className="select select-ghost bg-gray-100"
                                 onChange={(e) => setState(e.target.value)}
                             >
-                                <option value="DEFAULT" selected>
-                                    ...
-                                </option>
+                                <option value="DEFAULT">...</option>
 
                                 {data?.map((response: any) => (
                                     <option
@@ -346,9 +344,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setCitySelected(event.target.value)
                                 }
                             >
-                                <option value="DEFAULT" selected>
-                                    ...
-                                </option>
+                                <option value="DEFAULT">...</option>
 
                                 {city?.map((res: any) => (
                                     <option
@@ -406,9 +402,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     setInverter(e.target.value);
                                 }}
                             >
-                                <option value="DEFAULT" selected>
-                                    ...
-                                </option>
+                                <option value="DEFAULT">...</option>
                                 <option value={1}>Afore</option>
                                 <option value={2}>SMA</option>
                             </select>

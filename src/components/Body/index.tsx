@@ -1,12 +1,8 @@
 import Image from "next/image";
-import { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import BlogContent from "../BlogContent";
 import Footer from "../Footer";
 import Navbar from "../NavBar";
-import BF1Img from "../../assets/images/banners/BF1.svg";
-import BF2Img from "../../assets/images/banners/BF2.svg";
-import BF3Img from "../../assets/images/banners/BF3.svg";
-import BF4Img from "../../assets/images/banners/BF4.svg";
 import { useRouter } from "next/router";
 import Banner01Img from "../../assets/images/banners/01.png";
 import Banner02Img from "../../assets/images/banners/02.png";
@@ -64,10 +60,7 @@ const Body = ({ children }: BodyProps) => {
                             <div className="grid grid-cols-2 gap-4 md:grid-cols-1 pb-5">
                                 {data?.data.map((postBlog: any) => {
                                     return (
-                                        <li
-                                            className="list-none"
-                                            key={postBlog.id}
-                                        >
+                                        <React.Fragment key={postBlog.id}>
                                             <BlogContent
                                                 image={
                                                     postBlog
@@ -80,7 +73,7 @@ const Body = ({ children }: BodyProps) => {
                                                 data={postBlog.date}
                                                 link={postBlog.link}
                                             />
-                                        </li>
+                                        </React.Fragment>
                                     );
                                 })}
                             </div>
