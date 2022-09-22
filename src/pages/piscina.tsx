@@ -207,6 +207,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                         layout="fixed"
                                         width={60}
                                         height={60}
+                                        alt="Abracadeira Dimensolis"
                                     ></Image>
                                     <span className="font-bold text-black">
                                         Abraçadeira
@@ -217,6 +218,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                         {qtdAdaptadorModal}X
                                     </span>
                                     <Image
+                                        alt="Adaptador Dimensolis"
                                         src={AdaptadorImg}
                                         layout="fixed"
                                         width={60}
@@ -231,6 +233,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                         {qtdVacuoModal}X
                                     </span>
                                     <Image
+                                        alt="Vacuo Dimensolis"
                                         src={QuebraVacuoImg}
                                         layout="fixed"
                                         width={60}
@@ -245,6 +248,7 @@ export default function Piscina({ data }: any): JSX.Element {
                                         {qtdTampaModal}X
                                     </span>
                                     <Image
+                                        alt="Tampao Dimensolis"
                                         src={TampaoImg}
                                         layout="fixed"
                                         width={60}

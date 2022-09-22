@@ -34,6 +34,7 @@ const Footer = () => {
                             className="cursor-pointer"
                             src={BF1Img}
                             layout="responsive"
+                            alt={BF1Img}
                         ></Image>
                     </a>
                 </Link>
@@ -42,6 +43,7 @@ const Footer = () => {
                         <Image
                             className="cursor-pointer"
                             src={BF2Img}
+                            alt={BF2Img}
                             layout="responsive"
                         ></Image>
                     </a>
@@ -51,6 +53,7 @@ const Footer = () => {
                         <Image
                             className="cursor-pointer"
                             src={BF3Img}
+                            alt={BF3Img}
                             layout="responsive"
                         ></Image>
                     </a>
@@ -63,6 +66,7 @@ const Footer = () => {
                         <Image
                             className="cursor-pointer"
                             src={BF4Img}
+                            alt={BF4Img}
                             layout="responsive"
                         ></Image>
                     </a>
@@ -124,7 +128,11 @@ const Footer = () => {
                     </div>
                 </div>
                 <div>
-                    <Image src={FooterImg} layout="fixed"></Image>
+                    <Image
+                        src={FooterImg}
+                        alt="FooterImg"
+                        layout="fixed"
+                    ></Image>
                 </div>
             </div>
         </div>

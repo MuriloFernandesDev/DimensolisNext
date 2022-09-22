@@ -47,7 +47,11 @@ const Body = ({ children }: BodyProps) => {
         <>
             <Navbar>
                 <div className="w-full pt-24 md:pt-28">
-                    <Image src={BannerRouter} layout="responsive"></Image>
+                    <Image
+                        src={BannerRouter}
+                        alt="BannerImg"
+                        layout="responsive"
+                    ></Image>
                 </div>
                 <div className="w-full bg-primary">
                     <div className="bg-primary mx-auto grid grid-cols-1 md:grid-cols-4 max-w-7xl pt-4">

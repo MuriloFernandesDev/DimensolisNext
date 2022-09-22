@@ -30,7 +30,7 @@ const BlogContent = ({
                         <img
                             className="rounded-t-md"
                             src={image}
-                            alt="Imagem"
+                            alt={title}
                         ></img>
                     </div>
                     <div className="flex flex-wrap gap-3">

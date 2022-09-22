@@ -193,6 +193,7 @@ export default function Banho({ data }: any) {
                                     width={250}
                                     height={150}
                                     layout="fixed"
+                                    alt="Gerador Dimensolis"
                                 ></Image>
                             </div>
                             <div className="w-full flex justify-between">
@@ -208,6 +209,7 @@ export default function Banho({ data }: any) {
                                 <div className="flex items-center justify-end sm:justify-between gap-5">
                                     <div className="hidden sm:block">
                                         <Image
+                                            alt="Gerador2 Dimensolis"
                                             src={WaterImg}
                                             width={40}
                                             height={40}

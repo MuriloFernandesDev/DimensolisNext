@@ -9,7 +9,6 @@ import {
     faYoutube,
     faWhatsapp,
 } from "@fortawesome/free-brands-svg-icons";
-import { ReactElement } from "react";
 import { useRouter } from "next/router";
 
 interface NavProps {

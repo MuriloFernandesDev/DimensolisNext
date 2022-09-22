@@ -5,7 +5,7 @@ import { api } from "../services/apiconfig";
 import { useEffect, useState } from "react";
 import styles from "../styles/styles.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faBolt } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
@@ -170,6 +170,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         >
                             <div className="flex justify-center">
                                 <Image
+                                    alt="Gerador Dimensolis"
                                     src={GeneratorImg}
                                     width={250}
                                     height={120}
@@ -454,6 +455,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                             <Image
                                                 src={InversoresImg}
                                                 layout="responsive"
+                                                alt="Inversor Dimensolis"
                                             ></Image>
                                         </a>
                                     </Link>
@@ -471,6 +473,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                     >
                                         <a target={"_blank"}>
                                             <Image
+                                                alt="Catalogo Dimensolis"
                                                 src={CatalogoImg}
                                                 layout="responsive"
                                             ></Image>
