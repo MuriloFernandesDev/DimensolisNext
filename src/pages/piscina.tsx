@@ -556,7 +556,7 @@ export default function Piscina({ data }: any): JSX.Element {
                             inclinação máxima de 15°.
                         </span>
                     </div>
-                    <div className="grid grid-cols-1 gap-5 mt-10 md:grid-cols-2">
+                    <div className="grid grid-cols-1 gap-5 my-10 md:grid-cols-2">
                         <div>
                             <p className="text-primary-content font-bold text-2xl">
                                 Conheça nossos produtos
