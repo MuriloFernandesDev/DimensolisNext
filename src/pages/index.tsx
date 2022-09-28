@@ -1,5 +1,5 @@
 import Image from "next/image";
-import InversoresImg from "../assets/images/inversores.svg";
+import InversoresImg from "../assets/images/inverter.svg";
 import CatalogoImg from "../assets/images/fotosolis.svg";
 import { api } from "../services/apiconfig";
 import { useEffect, useState } from "react";
@@ -10,7 +10,9 @@ import toast from "react-hot-toast";
 import { apenasNumeros, apenasString, formatarMoeda } from "../utils/masks";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
-import GeneratorImg from "../assets/images/generatorIndex.png";
+import ComponentImg from "../assets/images/component.png";
+import AforeImg from "../assets/images/afore.png";
+import SmaImg from "../assets/images/sma.png";
 import Head from "next/head";
 
 export default function Fotovoltaico({ data }: any): JSX.Element {
@@ -76,7 +78,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                         .replace(/ /g, "")
                         .replace("00", "")
                 ),
-                tax: tariff, //formatar o dado tariff
+                tax: tariff.replace(",", "."), //formatar o dado tariff
             };
 
             try {
@@ -171,11 +173,24 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                             <div className="flex justify-center">
                                 <Image
                                     alt="Gerador Dimensolis"
-                                    src={GeneratorImg}
-                                    width={250}
-                                    height={120}
+                                    src={ComponentImg}
+                                    height={150}
                                     layout="fixed"
                                 ></Image>
+                                <div className="flex flex-col gap-2 justify-center items-center">
+                                    <figure className="h-14 w-14">
+                                        <Image
+                                            src={AforeImg}
+                                            layout="responsive"
+                                        ></Image>
+                                    </figure>
+                                    <figure className="h-14 w-14">
+                                        <Image
+                                            src={SmaImg}
+                                            layout="responsive"
+                                        ></Image>
+                                    </figure>
+                                </div>
                             </div>
                             <div className="flex items-center flex-col text-center w-full sm:text-start sm:flex-row gap-3 sm:gap-0">
                                 <div className="flex w-full justify-center sm:justify-start">
@@ -445,7 +460,7 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 <p className="text-primary-content font-bold text-2xl">
                                     Conheça nossos inversores
                                 </p>
-                                <div className="p-5 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
+                                <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
                                     <Link
                                         href={
                                             "https://solissolar.com.br/sistema-fotovoltaico/"
@@ -465,10 +480,10 @@ export default function Fotovoltaico({ data }: any): JSX.Element {
                                 <p className="text-primary-content font-bold text-2xl">
                                     Catálogo digital
                                 </p>
-                                <div className="relative -m-2 mt-1 rounded-xl shadow-xl shadow-black/20 transition-all duration-300 md:hover:scale-105 md:hover:shadow-2xl">
+                                <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
                                     <Link
                                         href={
-                                            "https://solissolar.com.br/wp-content/uploads/2022/06/catalogo_fotovoltaico_digital.pdf"
+                                            "https://solissolar.com.br/sistema-fotovoltaico/"
                                         }
                                     >
                                         <a target={"_blank"}>

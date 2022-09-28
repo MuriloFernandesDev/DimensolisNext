@@ -11,7 +11,10 @@ import TampaoImg from "../assets/images/tampao.png";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import PiscinaImg from "../assets/images/piscina.svg";
 import Head from "next/head";
+import FrameImg from "../assets/images/Frame.svg";
+import SolarImg from "../assets/images/solar.svg";
 
 export default function Piscina({ data }: any): JSX.Element {
     const [name, setName] = useState<string>();
@@ -196,67 +199,74 @@ export default function Piscina({ data }: any): JSX.Element {
                                     Kit de instalação
                                 </h1>
                             </div>
-
-                            <div className="flex gap-5 flex-wrap justify-center">
-                                <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-14">
-                                        {qtdAbracadeiraModal}X
-                                    </span>
-                                    <Image
-                                        src={AbracadeiraImg}
-                                        layout="fixed"
-                                        width={60}
-                                        height={60}
-                                        alt="Abracadeira Dimensolis"
-                                    ></Image>
-                                    <span className="font-bold text-black">
-                                        Abraçadeira
-                                    </span>
+                            <div className="flex flex-col text-center md:flex-row">
+                                <div className="flex gap-5 flex-wrap justify-center">
+                                    <div className="flex flex-col items-center justify-center gap-1 relative">
+                                        <span className="badge badge-warning absolute font-semibold -mt-24 -ml-14">
+                                            {qtdAbracadeiraModal}X
+                                        </span>
+                                        <Image
+                                            src={AbracadeiraImg}
+                                            layout="fixed"
+                                            width={50}
+                                            height={50}
+                                            alt="Abracadeira Dimensolis"
+                                        ></Image>
+                                        <span className="font-bold text-black">
+                                            Abraçadeira
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center justify-center gap-1 relative">
+                                        <span className="badge badge-warning absolute font-semibold -mt-24 -ml-20">
+                                            {qtdAdaptadorModal}X
+                                        </span>
+                                        <Image
+                                            alt="Adaptador Dimensolis"
+                                            src={AdaptadorImg}
+                                            layout="fixed"
+                                            width={50}
+                                            height={50}
+                                        ></Image>
+                                        <span className="font-bold text-black">
+                                            Adaptador
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center justify-center gap-1 relative">
+                                        <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
+                                            {qtdVacuoModal}X
+                                        </span>
+                                        <Image
+                                            alt="Vacuo Dimensolis"
+                                            src={QuebraVacuoImg}
+                                            layout="fixed"
+                                            width={50}
+                                            height={50}
+                                        ></Image>
+                                        <span className="font-bold text-black">
+                                            Quebra-vácuo
+                                        </span>
+                                    </div>
+                                    <div className="flex flex-col items-center justify-center gap-1 relative">
+                                        <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
+                                            {qtdTampaModal}X
+                                        </span>
+                                        <Image
+                                            alt="Tampao Dimensolis"
+                                            src={TampaoImg}
+                                            layout="fixed"
+                                            width={50}
+                                            height={50}
+                                        ></Image>
+                                        <span className="font-bold text-black">
+                                            Tampão
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-20">
-                                        {qtdAdaptadorModal}X
-                                    </span>
+                                <div>
                                     <Image
-                                        alt="Adaptador Dimensolis"
-                                        src={AdaptadorImg}
+                                        src={PiscinaImg}
                                         layout="fixed"
-                                        width={60}
-                                        height={60}
                                     ></Image>
-                                    <span className="font-bold text-black">
-                                        Adaptador
-                                    </span>
-                                </div>
-                                <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
-                                        {qtdVacuoModal}X
-                                    </span>
-                                    <Image
-                                        alt="Vacuo Dimensolis"
-                                        src={QuebraVacuoImg}
-                                        layout="fixed"
-                                        width={60}
-                                        height={60}
-                                    ></Image>
-                                    <span className="font-bold text-black">
-                                        Quebra-vácuo
-                                    </span>
-                                </div>
-                                <div className="flex flex-col items-center justify-center gap-1 relative">
-                                    <span className="badge badge-warning absolute font-semibold -mt-24 -ml-16">
-                                        {qtdTampaModal}X
-                                    </span>
-                                    <Image
-                                        alt="Tampao Dimensolis"
-                                        src={TampaoImg}
-                                        layout="fixed"
-                                        width={60}
-                                        height={60}
-                                    ></Image>
-                                    <span className="font-bold text-black">
-                                        Tampão
-                                    </span>
                                 </div>
                             </div>
                             <div className="flex justify-between">
@@ -545,6 +555,48 @@ export default function Piscina({ data }: any): JSX.Element {
                             sombreamento, orientação norte geográfico e
                             inclinação máxima de 15°.
                         </span>
+                    </div>
+                    <div className="grid grid-cols-1 gap-5 mt-10 md:grid-cols-2">
+                        <div>
+                            <p className="text-primary-content font-bold text-2xl">
+                                Conheça nossos produtos
+                            </p>
+                            <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
+                                <Link
+                                    href={
+                                        "https://solissolar.com.br/sistema-fotovoltaico/"
+                                    }
+                                >
+                                    <a target={"_blank"}>
+                                        <Image
+                                            src={FrameImg}
+                                            layout="responsive"
+                                            alt="Inversor Dimensolis"
+                                        ></Image>
+                                    </a>
+                                </Link>
+                            </div>
+                        </div>
+                        <div>
+                            <p className="text-primary-content font-bold text-2xl">
+                                Catálogo digital
+                            </p>
+                            <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
+                                <Link
+                                    href={
+                                        "https://solissolar.com.br/sistema-fotovoltaico/"
+                                    }
+                                >
+                                    <a target={"_blank"}>
+                                        <Image
+                                            alt="Catalogo Dimensolis"
+                                            src={SolarImg}
+                                            layout="responsive"
+                                        ></Image>
+                                    </a>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

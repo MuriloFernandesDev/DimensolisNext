@@ -11,6 +11,8 @@ import GeneratorImg from "../assets/images/generator.png";
 import Link from "next/link";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import Head from "next/head";
+import FrameBanhoImg from "../assets/images/framebanho.svg";
+import SolarImg from "../assets/images/solarbanho.svg";
 
 export default function Banho({ data }: any) {
     const [name, setName] = useState<string>();
@@ -612,6 +614,48 @@ export default function Banho({ data }: any) {
                                 </span>
                             </div>
                         </form>
+                        <div className="grid grid-cols-1 gap-5 mt-10 md:grid-cols-2">
+                            <div>
+                                <p className="text-primary-content font-bold text-2xl">
+                                    Conheça nossos produtos
+                                </p>
+                                <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
+                                    <Link
+                                        href={
+                                            "https://solissolar.com.br/sistema-fotovoltaico/"
+                                        }
+                                    >
+                                        <a target={"_blank"}>
+                                            <Image
+                                                src={FrameBanhoImg}
+                                                layout="responsive"
+                                                alt="Inversor Dimensolis"
+                                            ></Image>
+                                        </a>
+                                    </Link>
+                                </div>
+                            </div>
+                            <div>
+                                <p className="text-primary-content font-bold text-2xl">
+                                    Catálogo digital
+                                </p>
+                                <div className="bg-none rounded-xl transition-all duration-300 md:hover:scale-105">
+                                    <Link
+                                        href={
+                                            "https://solissolar.com.br/sistema-fotovoltaico/"
+                                        }
+                                    >
+                                        <a target={"_blank"}>
+                                            <Image
+                                                alt="Catalogo Dimensolis"
+                                                src={SolarImg}
+                                                layout="responsive"
+                                            ></Image>
+                                        </a>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

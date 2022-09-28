@@ -45,7 +45,7 @@ export const formatarMoeda = (e: any) => {
 };
 
 export function apenasNumeros(string: any) {
-    var numsStr = string.replace(/[^0-9]/g, "");
+    var numsStr = string?.replace(/[^0-9]/g, "");
     var addnumber = numsStr + "00";
     var addponto = addnumber.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return addponto;
@@ -58,7 +58,7 @@ export function soNumerosInput(evt: any) {
 
 export function apenasString(string: any) {
     const result = string
-        .replace(/[0-9]/g, "")
+        ?.replace(/[0-9]/g, "")
         .replace(",", "")
         .replace("kWp", "");
 
